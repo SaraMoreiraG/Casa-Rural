@@ -1,4 +1,41 @@
-.u-section-1 {
+.home{
 	background-image: linear-gradient(0deg, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('src/assets/images/river-flowing-through-forest-generative-al2-min.jpg');
+	background-size: cover;
 	background-position: 50% 50%;
-  }
+	min-height: 100vh;
+}
+h1, p{
+	color: #fff;
+}
+.text-header{
+	width: 760px;
+}
+.row-buttons-container{
+	display: flex;
+	justify-content: center;
+	gap: 20px;
+}
+.card{
+	background-color: #a79770;
+	border-radius: 22px;
+	color: #fff;
+	padding: 40px;
+	width: 180px;
+	height: 150px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.card-img{
+	height: 59px;
+	width: 59px;
+}
+.card-text{
+	font-size: 1.25rem;
+	line-height: 1.2;
+	font-weight: 700;
+	margin: 20px 0 0;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+}
