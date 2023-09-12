@@ -39,6 +39,13 @@ p{
 }
 
 /********* SECTIONS *********/
+#about,
+#gallery,
+#activities,
+#services,
+#contact {
+	scroll-margin-top: 90px;
+}
 .home{
 	padding: 0 9em 0 9em;
 	display: flex;

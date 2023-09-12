@@ -1,0 +1,74 @@
+.navbar {
+	background-color: #333;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 90px;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	padding: 0 5em;
+	margin: 0 auto;
+	z-index: 100;
+	font-family: 'Lato', sans-serif;
+	letter-spacing: 1px;
+}
+.fade-in {
+	opacity: 0; /* Start with opacity 0 */
+	transition: opacity 0.5s ease-in-out; /* Add a transition for opacity */
+  }
+  .fade-in.active {
+	opacity: 1; /* When the element has the "active" class, set opacity to 1 */
+  }
+img{
+	height: 70px;
+}
+.active {
+	color: #a79770;
+}
+.flex-row {
+	z-index: 100;
+}
+a {
+	font-weight: 900;
+	font-size: 18px;
+	line-height: 1.5;
+	color: white;
+	text-decoration: none;
+	margin: 0 10px;
+	padding: 5px 10px;
+}
+.wrapper a:hover,
+.fa-solid:hover {
+	color: #fdca33;
+	cursor: pointer;
+}
+.fa-solid {
+	font-family: "Font Awesome 6 Free";
+	font-weight: 900;
+	font-size: 30px;
+}
+.menu-big {
+	list-style: none;
+	display: flex;
+	flex-direction: row;
+}
+@media screen and (max-width: 992px) {
+	/* Hide the menu on smaller screens */
+	nav {
+		display: none;
+	}
+}
+.menu-small {
+	list-style: none;
+}
+.offcanvas {
+	background-color: #000;
+	color: #fff;
+}
+.btn-close-white {
+	color: #fff;
+	margin-top: 5px;
+	font-size: 30px;
+}
