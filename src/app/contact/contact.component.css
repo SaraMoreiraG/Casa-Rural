@@ -1,32 +1,46 @@
-.contact{
-	padding: 60px 9em 80px 9em;
-	background-image: linear-gradient(0deg, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('src/assets/images/couple.jpg');
+.contact {
+	background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('src/assets/images/couple.jpg');
 	background-position: 50% 50%;
 	background-size: contain;
 	color: #fff;
 }
-p{
+
+@media screen and (max-width: 1122px) {
+	.contact {
+		background-size: cover;
+		background-repeat: no-repeat;
+	}
+}
+
+p {
 	letter-spacing: 2px;
 	margin: 32px 0 32px 0;
 	line-height: 1.8;
 }
-.row{
-	align-items: center;
-	justify-content: space-between;
+.text-input{
+	letter-spacing: 2px;
+	font-size: 1.25rem;
+	line-height: 1.8;
+	font-family: 'Lato', sans-serif;
+	margin-bottom: 8px;
 }
-.input-group{
+.input-group {
 	display: flex;
 	flex-direction: column;
 	margin-bottom: 20px;
 }
-input{
+
+input {
 	height: 50px;
 	border: none;
 	outline: none;
 }
-textarea{
+
+textarea {
 	outline: none;
 }
-input:focus, textarea:focus {
+
+input:focus,
+textarea:focus {
 	border: 3px solid #a79770;
 }

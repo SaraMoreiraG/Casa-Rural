@@ -1,20 +1,21 @@
-.testimonials{
-	padding: 60px 9em 80px 9em;
-}
-.content{
+.content {
 	margin: 60px;
 }
-.row{
+
+.row {
 	justify-content: space-between;
 }
-.opinion{
+
+.opinion {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 }
-.opinion-text{
+
+.opinion-text {
 	text-align: start;
 }
+
 .rounded-image {
 	width: 238px;
 	height: 238px;
@@ -23,15 +24,60 @@
 	background-size: cover;
 	background-position: center center;
 }
-.img1{
+
+@media screen and (max-width: 1112px) {
+	.rounded-image {
+		width: 200px;
+		height: 200px;
+	}
+}
+
+@media screen and (max-width: 980px) {
+	.rounded-image {
+		width: 180px;
+		height: 180px;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.rounded-image {
+		width: 438px;
+		height: 438px;
+	}
+
+	.opinion {
+		flex-direction: column;
+		justify-content: center;
+	}
+
+	.reverse {
+		flex-direction: column-reverse;
+	}
+
+	.opinion-text {
+		margin: 30px 0;
+	}
+}
+
+@media screen and (max-width: 576px) {
+	.rounded-image {
+		width: 180px;
+		height: 180px;
+	}
+}
+
+.img1 {
 	background-image: url("../../assets/images/girsltent.jpg");
 }
-.img2{
+
+.img2 {
 	background-image: url("../../assets/images/backpack.jpg");
 }
-.img3{
+
+.img3 {
 	background-image: url("../../assets/images/girltravel.jpg");
 }
-.img4{
+
+.img4 {
 	background-image: url("../../assets/images/tent2.jpg");
 }

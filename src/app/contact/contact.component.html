@@ -1,27 +1,32 @@
 <div class="contact">
-	<div class="row">
-	<div class="left col-6">
-		<h2>Contact Us</h2>
-		<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-			Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-			Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-			laborum.</p>
-		<button class="btn-white">Contact us</button>
-	</div>
-	<div class="right ps-5 col-5">
-		<div class="input-group">
-			<p class="m-1">Name and surname</p>
-			<input type="text" />
-		</div>
-		<div class="input-group">
-			<p class="m-1">Email</p>
-			<input type="text" />
-		</div>
-		<div class="input-group">
-			<p class="m-1">Message</p>
-			<textarea rows="6"></textarea>
-		</div>
-		<button class="btn-medium">Submit</button>
-	</div>
+	<div class="container-center">
+		<section class="row justify-content-between">
+			<div class="left text-start col-md-6 col-sm-12 mb-4">
+				<h2>Contact Us</h2>
+				<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+					consequat.
+					Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+					pariatur.
+					Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+					est
+					laborum.</p>
+				<button class="btn-white" aria-label="Contact us">Contact us</button>
+			</div>
+			<div class="right text-start ps-3 col-md-6 col-sm-12 ">
+				<div class="input-group">
+					<label for="name" class="text-input">Name and surname</label>
+					<input type="text" id="name" name="name" />
+				</div>
+				<div class="input-group">
+					<label for="email" class="text-input">Email</label>
+					<input type="text" id="email" name="email"/>
+				</div>
+				<div class="input-group">
+					<label for="message" class="text-input">Message</label>
+					<textarea rows="6" id="message" name="message"></textarea>
+				</div>
+				<button class="btn-medium" aria-label="Submit">Submit</button>
+			</div>
+		</section>
 	</div>
 </div>

@@ -1,25 +1,24 @@
-.gallery{
+.gallery {
 	background-color: #a79770;
-	padding: 60px 9em 85px 9em;
-}
-h1, p {
 	color: #fff;
 }
-/* .text-header{
-	width: 659px;
-} */
-.row-card{
+
+.row-card {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 	gap: 20px;
 }
+
 .card {
 	background-size: cover;
 	background-position: center center;
 	height: 450px;
 	position: relative;
 	text-align: center;
+	border: none;
+	border-radius: 0;
 }
+
 .card-content {
 	position: absolute;
 	bottom: 0;
@@ -29,40 +28,50 @@ h1, p {
 	padding: 20px;
 	color: #fff;
 }
-.card-content p{
+
+.card-content p {
 	font-style: italic;
 	margin: 15px 0 0;
 	font-size: 1.125rem;
 	line-height: 1.8;
 }
-.card1{
+
+.card1 {
 	background-image: url("../../assets/images/caravan.jpg");
 }
-.card2{
+
+.card2 {
 	background-image: url("../../assets/images/campingaz.jpg");
 }
-.card3{
+
+.card3 {
 	background-image: url("../../assets/images/book.jpg");
 }
-.card4{
+
+.card4 {
 	background-image: url("../../assets/images/photo.jpg");
 }
-.card5{
+
+.card5 {
 	background-image: url("../../assets/images/volskwagen.jpg");
 }
-.card6{
+
+.card6 {
 	background-image: url("../../assets/images/tent.jpg");
 }
+
 @media screen and (max-width: 992px) {
+
 	/* 2 cards in medium screen */
 	.row-card {
-	  grid-template-columns: repeat(2, 1fr);
+		grid-template-columns: repeat(2, 1fr);
 	}
 }
 
 @media screen and (max-width: 576px) {
+
 	/* 1 card in small screen */
 	.row-card {
-	  grid-template-columns: repeat(1, 1fr);
+		grid-template-columns: repeat(1, 1fr);
 	}
 }

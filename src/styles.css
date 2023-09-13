@@ -46,11 +46,6 @@ p{
 #contact {
 	scroll-margin-top: 90px;
 }
-.home{
-	display: flex;
-	align-items: center;
-	font-family: 'Lato', sans-serif;
-}
 .container-center {
 	margin-left: auto;
 	margin-right: auto;
@@ -58,11 +53,10 @@ p{
 	padding: 60px 50px;
 	text-align: center;
 }
-
-.row-card{
-	display: flex;
+.row{
 	justify-content: center;
 	margin-top: 50px;
+	flex-wrap: wrap;
 }
 
 /********* BUTTONS *********/
@@ -82,7 +76,6 @@ p{
 	letter-spacing: 2px;
 }
 .btn-medium{
-	font-size: 0.875rem;
 	letter-spacing: 1px;
 	padding: 13px 53px 14px 52px;
 }
