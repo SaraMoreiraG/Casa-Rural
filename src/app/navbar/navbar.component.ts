@@ -8,7 +8,6 @@ import {Component, HostListener} from "@angular/core";
 export class NavbarComponent {
 	showMenu = false;
 	isSmallScreen = window.innerWidth <= 992;
-  showLargeScreenMenu = false;
 	activeSection: string | null = null;
 
 	menuItems = [
@@ -20,21 +19,9 @@ export class NavbarComponent {
 		{label: "CONTACTO", link: "#contact"},
 	];
 
-	toggleMenu() {
-		this.showMenu = !this.showMenu;
-	}
-
-	closeMenu() {
-		this.showMenu = false;
-	}
-
 	@HostListener("window:resize", ["$event"])
 	onResize(event: any) {
 		this.isSmallScreen = event.target.innerWidth <= 992;
-		// Hide the menu when resizing from large to small screen
-		if (this.isSmallScreen) {
-			this.showMenu = false;
-		}
 	}
 
 	@HostListener("window:scroll", [])
@@ -56,8 +43,8 @@ export class NavbarComponent {
 
 		this.activeSection = activeSection;
 
-		// Check if the user has scrolled and remove the transparent background class
-		this.showLargeScreenMenu = window.scrollY < 90 && !this.isSmallScreen;
+		// Check if the user has scrolled and show menu
+		this.showMenu = window.scrollY > 90;
 	}
 
 	constructor() {

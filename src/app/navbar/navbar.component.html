@@ -1,57 +1,35 @@
-<div class="navbar" [ngStyle]="{ display: !showLargeScreenMenu ? 'flex' : 'none' }">
-	<a id="logo" href="#home">
-		<img src="../../assets/images/logo.png" />
-	</a>
+<nav [ngStyle]="{ display: showMenu ? 'flex' : 'none' }" aria-label="Main Navigation">
 
-	<a
-		id="openmenu"
-		href="#"
-		*ngIf="isSmallScreen"
-		data-bs-toggle="offcanvas"
-		data-bs-target="#offcanvasScrolling"
-		aria-controls="offcanvasScrolling"
-		(click)="toggleMenu()"
-	>
+	<!-- <a id="logo" href="#home">
+			<img src="../../assets/images/logo.png" />
+		</a> -->
+
+	<a id="openmenu" *ngIf="isSmallScreen" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling"
+		aria-controls="offcanvasScrolling" aria-label="Open Menu">
 		<i class="fa-solid fa-bars"></i>
 	</a>
 
 	<!-- Menu for larger screens -->
-	<nav id="nav" [ngStyle]="{ display: !isSmallScreen ? 'flex' : 'none' }">
-		<ul class="menu-big p-0">
-			<li *ngFor="let item of menuItems" >
-				<a
-					[href]="item.link"
-					[class.active]="activeSection === item.link.slice(1)"
-				>
-					{{ item.label }}
-				</a>
-			</li>
-		</ul>
-	</nav>
-</div>
+	<ul class="menu-big p-0" [ngStyle]="{ display: !isSmallScreen ? 'flex' : 'none' }">
+		<li *ngFor="let item of menuItems">
+			<a [href]="item.link" [class.active]="activeSection === item.link.slice(1)" tabindex="0">
+				{{ item.label }}
+			</a>
+		</li>
+	</ul>
+</nav>
 
 <!-- Offcanvas for smaller screens -->
-<div
-	class="offcanvas offcanvas-start"
-	data-bs-scroll="true"
-	data-bs-backdrop="false"
-	tabindex="-1"
-	id="offcanvasScrolling"
-	aria-labelledby="offcanvasScrollingLabel"
->
+<div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
+	id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
 	<div class="offcanvas-header justify-content-end">
-		<i
-			class="fa-solid fa-xmark"
-			data-bs-dismiss="offcanvas"
-			aria-label="Close"
-			(click)="toggleMenu()"
-		></i>
+		<i class="fa-solid fa-xmark" data-bs-dismiss="offcanvas" aria-label="Close"></i>
 	</div>
 	<div class="offcanvas-body">
 		<!-- Menu for the offcanvas -->
 		<ul class="menu-small">
 			<li *ngFor="let item of menuItems" class="mb-3">
-				<a [href]="item.link" (click)="closeMenu()">{{ item.label }}</a>
+				<a [href]="item.link" [class.active]="activeSection === item.link.slice(1)">{{ item.label }}</a>
 			</li>
 		</ul>
 	</div>
