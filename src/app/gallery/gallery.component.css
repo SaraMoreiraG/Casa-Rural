@@ -5,9 +5,9 @@
 h1, p {
 	color: #fff;
 }
-.text-header{
+/* .text-header{
 	width: 659px;
-}
+} */
 .row-card{
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);

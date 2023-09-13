@@ -47,20 +47,22 @@ p{
 	scroll-margin-top: 90px;
 }
 .home{
-	padding: 0 9em 0 9em;
 	display: flex;
 	align-items: center;
-	justify-content: center;
 	font-family: 'Lato', sans-serif;
 }
-.container-center{
+.container-center {
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 1200px;
+	padding: 60px 50px;
 	text-align: center;
 }
+
 .row-card{
 	display: flex;
-	justify-content: space-between;
+	justify-content: center;
 	margin-top: 50px;
-	gap: 30px;
 }
 
 /********* BUTTONS *********/
