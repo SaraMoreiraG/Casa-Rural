@@ -4,6 +4,8 @@
 	background-position: 50% 50%;
 	min-height: 100vh;
 	color: #fff;
+	display: flex;
+	align-items: center;
 }
 
 .row-buttons-container {
@@ -16,6 +18,7 @@
 .card {
 	background-color: #a79770;
 	border-radius: 22px;
+	border: none;
 	color: #fff;
 	margin-bottom: 20px;
 	padding: 40px;
