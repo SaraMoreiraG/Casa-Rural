@@ -3,24 +3,20 @@
 	background-size: cover;
 	background-position: 50% 50%;
 	min-height: 100vh;
-}
-h1, p{
 	color: #fff;
-}
-.text-header{
-	width: 760px;
 }
 .row-buttons-container{
 	display: flex;
 	justify-content: center;
-	gap: 20px;
+	flex-wrap: wrap;
+	padding: 0;
 }
 .card{
 	background-color: #a79770;
 	border-radius: 22px;
 	color: #fff;
+	margin-bottom: 20px;
 	padding: 40px;
-	width: 180px;
 	height: 150px;
 	display: flex;
 	flex-direction: column;
