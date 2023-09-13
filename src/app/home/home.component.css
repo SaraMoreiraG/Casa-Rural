@@ -1,17 +1,19 @@
-.home{
-	background-image: linear-gradient(0deg, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('src/assets/images/home-img.jpg');
+.home {
+	background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('src/assets/images/home-img.jpg');
 	background-size: cover;
 	background-position: 50% 50%;
 	min-height: 100vh;
 	color: #fff;
 }
-.row-buttons-container{
+
+.row-buttons-container {
 	display: flex;
 	justify-content: center;
 	flex-wrap: wrap;
 	padding: 0;
 }
-.card{
+
+.card {
 	background-color: #a79770;
 	border-radius: 22px;
 	color: #fff;
@@ -23,11 +25,13 @@
 	justify-content: center;
 	align-items: center;
 }
-.card-img{
+
+.card-img {
 	height: 59px;
 	width: 59px;
 }
-.card-text{
+
+.card-text {
 	font-size: 1.25rem;
 	line-height: 1.2;
 	font-weight: 700;

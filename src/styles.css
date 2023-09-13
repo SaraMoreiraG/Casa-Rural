@@ -58,11 +58,11 @@ p{
 	padding: 60px 50px;
 	text-align: center;
 }
-
-.row-card{
+.row{
 	display: flex;
 	justify-content: center;
 	margin-top: 50px;
+	flex-wrap: wrap;
 }
 
 /********* BUTTONS *********/
