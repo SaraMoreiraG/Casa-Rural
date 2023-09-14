@@ -44,7 +44,7 @@ p{
 #activities,
 #services,
 #contact {
-	scroll-margin-top: 80px;
+	scroll-margin-top: 75px;
 }
 .container-center {
 	margin-left: auto;
@@ -53,6 +53,21 @@ p{
 	padding: 60px 50px;
 	text-align: center;
 }
+.text-header{
+	padding: 0 180px;
+}
+@media screen and (max-width: 1160px) {
+	.text-header{
+		padding: 0 100px;
+	}
+}
+
+@media screen and (max-width: 980px) {
+	.text-header{
+		padding: 0 50px;
+	}
+}
+
 .row{
 	justify-content: center;
 	margin-top: 50px;

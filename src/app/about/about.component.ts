@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ScrollService } from '../scroll.service';
 
 @Component({
   selector: 'about',
@@ -6,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./about.component.css']
 })
 export class AboutComponent {
+  constructor(private scrollService: ScrollService) {}
 
+  scrollTo(sectionId: string) {
+    this.scrollService.scrollToSection(sectionId);
+  }
 }
