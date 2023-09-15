@@ -27,9 +27,10 @@ export class ContactComponent {
     };
 
     // Solicitud HTTP POST al servidor Node.js
-    this.http.post('http://localhost:3000/enviar-correo', datos).subscribe({
+    this.http.post('http://localhost:3000/send-email', datos).subscribe({
       next: (respuesta) => {
         console.log('Correo electrónico enviado con éxito', respuesta);
+        this.isError = false;
         this.messageText =
           'Mensaje enviado, en breve nos pondremos en contacto contigo.';
       },
