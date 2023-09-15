@@ -6,42 +6,48 @@
       para brindarte una experiencia inolvidable.
     </p>
     <section class="row-card">
-      <article class="card card1">
-        <div class="card-content">
-          <h4>VISTAS PANORÁMICAS</h4>
-          <p>Disfruta de impresionantes vistas de la montaña y el paisaje circundante desde la comodidad de tu hogar temporal.</p>
-        </div>
-      </article>
-      <article class="card card2">
-        <div class="card-content">
-          <h4>COMODIDADES MODERNAS</h4>
-          <p>Nuestra casa está equipada con todas las comodidades modernas para que te sientas como en casa durante tu estancia.</p>
-        </div>
-      </article>
-      <article class="card card3">
-        <div class="card-content">
-          <h4>NATURALEZA A TU PUERTA</h4>
-          <p>Sal a explorar la belleza natural que rodea nuestra casa. Senderos, ríos y aventuras te esperan.</p>
-        </div>
-      </article>
-      <article class="card card4">
-        <div class="card-content">
-          <h4>DESCUBRE LA CULTURA</h4>
-          <p>Sumérgete en la rica cultura de Puebla de Sanabria. Explora sus calles empedradas y su encanto histórico.</p>
-        </div>
-      </article>
-      <article class="card card5">
-        <div class="card-content">
-          <h4>RELÁJATE Y DESCANSA</h4>
-          <p>Un lugar perfecto para desconectar y relajarte. Disfruta de la tranquilidad y la paz que nuestra casa ofrece.</p>
-        </div>
-      </article>
-      <article class="card card6">
-        <div class="card-content">
-          <h4>RESERVA TU ESTANCIA</h4>
-          <p>¡Haz tu reserva ahora y experimenta la magia de Puebla de Sanabria desde nuestra casa de alquiler!</p>
-        </div>
-      </article>
+      <!----------- CARD 1 ------------>
+      <photo-card [title]="'VISTAS PANORÁMICAS'" [content]="'Disfruta de impresionantes vistas de la montaña.'"
+        [images]="[
+                  '../../assets/images/vistas1.jpg',
+                  '../../assets/images/vistas2.jpg'
+                ]">
+      </photo-card>
+      <!----------- CARD 2 ------------>
+      <photo-card [title]="'COMODIDADES MODERNAS'" [content]="'Nuestra casa está equipada con todas las comodidades.'"
+        [images]="[
+        '../../assets/images/comedor.jpg',
+        '../../assets/images/cocina.jpg',
+                ]">
+      </photo-card>
+      <!----------- CARD 3 ------------>
+      <photo-card [title]="'NATURALEZA A TU PUERTA'"
+        [content]="'Sal a explorar la belleza natural que rodea nuestra casa.'" [images]="[
+        '../../assets/images/lago.jpg',
+        '../../assets/images/cascada.jpg',
+                ]">
+      </photo-card>
+      <!----------- CARD 4 ------------>
+      <photo-card [title]="'DESCUBRE LA CULTURA'" [content]="'Sumérgete en la rica cultura de Puebla de Sanabria.'"
+        [images]="[
+        '../../assets/images/callepuebla.jpg',
+        '../../assets/images/casaluz.jpg',
+                ]">
+      </photo-card>
+      <!----------- CARD 5 ------------>
+      <photo-card [title]="'RELÁJATE Y DESCANSA'" [content]="'Un lugar perfecto para desconectar y relajarte.'"
+        [images]="[
+        '../../assets/images/habitacion1.jpg',
+        '../../assets/images/habitacion2.jpg',
+        '../../assets/images/baño1.jpg',
+        '../../assets/images/ducha.jpg',
+                ]">
+      </photo-card>
+      <!----------- CARD 6 ------------>
+      <photo-card [title]="'RESERVA TU ESTANCIA'"
+        [content]="'¡Haz tu reserva ahora y experimenta la magia de Puebla de Sanabria!'"
+        [images]="['../../assets/images/airbnb.jpg']" [isSpecial]="true"
+        [specialLink]="'https://www.airbnb.es/rooms/945766271880521378?guests=1&adults=1&s=67&unique_share_id=5c02826d-96e3-4941-9fd2-463ae68d8f51'"></photo-card>
     </section>
   </div>
 </div>
