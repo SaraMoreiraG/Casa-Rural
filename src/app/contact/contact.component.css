@@ -18,6 +18,10 @@ p {
 	line-height: 1.8;
 }
 
+.error{
+	color: red;
+}
+
 .left a{
 	text-decoration: none;
 	color: #fff;
