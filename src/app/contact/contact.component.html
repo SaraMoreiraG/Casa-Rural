@@ -3,28 +3,36 @@
 		<section class="row justify-content-between align-items-center">
 			<div class="left text-start col-md-6 col-sm-12 mb-4">
 				<h2>Contacto</h2>
-				<p>Si tienes alguna pregunta o necesitas más información sobre nuestra casa de alquiler en Puebla de Sanabria, no dudes en ponerte en contacto con nosotros. Estamos aquí para ayudarte.</p>
-				<p>También puedes contactarnos directamente por teléfono en el número <a href="tel:+34990549" target="_blank">+34 622 146 250</a></p>
-				<button class="btn-white" aria-label="Contáctanos por whatsapp"><a href="https://wa.me/622146250" target="_blank">escribenos un whatsapp</a></button>
+				<p>Si tienes alguna pregunta o necesitas más información sobre nuestra casa de alquiler en Puebla de
+					Sanabria, no dudes en ponerte en contacto con nosotros. Estamos aquí para ayudarte.</p>
+				<p>También puedes contactarnos directamente por teléfono en el número <a href="tel:+34990549"
+						target="_blank">+34 622 146 250</a></p>
+				<button class="btn-white" aria-label="Contáctanos por whatsapp"><a href="https://wa.me/622146250"
+						target="_blank">escribenos un whatsapp</a></button>
 			</div>
 			<div class="right text-start ps-3 col-md-6 col-sm-12 ">
-				<div class="input-group">
-					<label for="name" class="text-input">Nombre y apellidos</label>
-					<input type="text" id="name" name="name" />
-				</div>
-				<div class="input-group">
-					<label for="phone" class="text-input">Teléfono</label>
-					<input type="text" id="phone" name="phone" />
-				</div>
-				<div class="input-group">
-					<label for="email" class="text-input">Correo electrónico</label>
-					<input type="text" id="email" name="email"/>
-				</div>
-				<div class="input-group">
-					<label for="message" class="text-input">Mensaje</label>
-					<textarea rows="6" id="message" name="message"></textarea>
-				</div>
-				<button class="btn-medium" aria-label="Enviar">Enviar</button>
+				<form (ngSubmit)="sendEmail()">
+					<div class="input-group">
+						<label for="name" class="text-input">Nombre y apellidos</label>
+						<input type="text" id="name" name="name" [(ngModel)]="name" />
+					</div>
+					<div class="input-group">
+						<label for="phone" class="text-input">Teléfono</label>
+						<input type="text" id="phone" name="phone" [(ngModel)]="phone" />
+					</div>
+					<div class="input-group">
+						<label for="email" class="text-input">Correo electrónico</label>
+						<input type="text" id="email" name="email" [(ngModel)]="email" />
+					</div>
+					<div class="input-group">
+						<label for="message" class="text-input">Mensaje</label>
+						<textarea rows="6" id="message" name="message" [(ngModel)]="message"></textarea>
+					</div>
+					<div *ngIf="showMessage" [class.error]="isError" class="mb-3">
+						{{ messageText }}
+					  </div>
+					<button type="submit" class="btn-big" aria-label="Enviar">Enviar</button>
+				</form>
 			</div>
 		</section>
 	</div>

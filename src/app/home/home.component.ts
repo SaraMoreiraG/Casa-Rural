@@ -7,9 +7,9 @@ import { ScrollService } from '../scroll.service';
   styleUrls: ['./home.component.css', '../../styles.css']
 })
 export class HomeComponent {
-  constructor(private scrollService: ScrollService) {} // Inyecta el servicio
+  constructor(private scrollService: ScrollService) {}
 
   scrollTo(sectionId: string) {
-    this.scrollService.scrollToSection(sectionId); // Llama a la función del servicio
+    this.scrollService.scrollToSection(sectionId);
   }
 }

@@ -75,7 +75,7 @@ p{
 }
 
 /********* BUTTONS *********/
-.btn-small, .btn-medium{
+.btn-small, .btn-medium, .btn-big{
 	background-color: #a79770;
 	border-radius: 30px;
 	padding: 1em 2em;
@@ -93,6 +93,11 @@ p{
 .btn-medium{
 	letter-spacing: 1px;
 	padding: 13px 53px 14px 52px;
+}
+.btn-big{
+	letter-spacing: 2px;
+	padding: 13px 53px 14px 52px;
+	width: 100%;
 }
 .btn-small:hover, .btn-medium:hover{
 	cursor: pointer;
