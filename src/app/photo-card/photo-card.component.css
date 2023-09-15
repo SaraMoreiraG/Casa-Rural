@@ -49,3 +49,8 @@
 .prev-arrow {
 	left: 40px;
 }
+
+.booking:hover {
+	padding: 40px;
+	cursor: pointer;
+}

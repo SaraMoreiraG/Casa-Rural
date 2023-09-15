@@ -22,8 +22,7 @@
       </photo-card>
       <!----------- CARD 3 ------------>
       <photo-card [title]="'NATURALEZA A TU PUERTA'"
-        [content]="'Sal a explorar la belleza natural que rodea nuestra casa.'"
-        [images]="[
+        [content]="'Sal a explorar la belleza natural que rodea nuestra casa.'" [images]="[
         '../../assets/images/lago.jpg',
         '../../assets/images/cascada.jpg',
                 ]">
@@ -45,15 +44,10 @@
                 ]">
       </photo-card>
       <!----------- CARD 6 ------------>
-      <article class="card card6">
-        <a href="https://www.airbnb.es/rooms/945766271880521378?guests=1&adults=1&s=67&unique_share_id=5c02826d-96e3-4941-9fd2-463ae68d8f51"
-          target="_blank">
-          <div class="card-content booking">
-            <h4>RESERVA TU ESTANCIA</h4>
-            <p>¡Haz tu reserva ahora y experimenta la magia de Puebla de Sanabria!</p>
-          </div>
-        </a>
-      </article>
+      <photo-card [title]="'RESERVA TU ESTANCIA'"
+        [content]="'¡Haz tu reserva ahora y experimenta la magia de Puebla de Sanabria!'"
+        [images]="['../../assets/images/airbnb.jpg']" [isSpecial]="true"
+        [specialLink]="'https://www.airbnb.es/rooms/945766271880521378?guests=1&adults=1&s=67&unique_share_id=5c02826d-96e3-4941-9fd2-463ae68d8f51'"></photo-card>
     </section>
   </div>
 </div>

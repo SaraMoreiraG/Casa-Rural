@@ -1,14 +1,26 @@
 <article class="card" [style.background-image]="'url(' + cardPhoto + ')'">
-	<div class="card-content">
-		<h4>{{ title }}</h4>
-		<p>{{ content }}</p>
-	</div>
-	<!-- Previus Photo Arrow -->
-	<div class="prev-arrow" *ngIf="!isFirstCard" (click)="prevImage()">
-		<span>&larr;</span>
-	</div>
-	<!-- Next Photo Arrow -->
-	<div class="next-arrow" *ngIf="!isLastCard" (click)="nextImage()">
-		<span>&rarr;</span>
-	</div>
+	<ng-container *ngIf="isSpecial; else regularCard">
+		<!-- Special Card Content -->
+		<a [href]="specialLink" target="_blank">
+			<div class="card-content booking">
+				<h4>{{ title }}</h4>
+				<p>{{ content }}</p>
+			</div>
+		</a>
+	</ng-container>
+	<ng-template #regularCard>
+		<!-- Regular Card Content -->
+		<div class="card-content">
+			<h4>{{ title }}</h4>
+			<p>{{ content }}</p>
+		</div>
+		<!-- Previus Photo Arrow -->
+		<div class="prev-arrow" *ngIf="!isFirstCard" (click)="prevImage()">
+			<span>&larr;</span>
+		</div>
+		<!-- Next Photo Arrow -->
+		<div class="next-arrow" *ngIf="!isLastCard" (click)="nextImage()">
+			<span>&rarr;</span>
+		</div>
+	</ng-template>
 </article>

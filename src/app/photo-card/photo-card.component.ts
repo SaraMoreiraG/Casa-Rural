@@ -10,6 +10,8 @@ export class PhotoCardComponent {
   @Input() content: string = '';
   @Input() images: string[] = [];
   @Input() cardPhoto: string = '';
+  @Input() isSpecial: boolean = false;
+  @Input() specialLink: string = '';
 
   isFirstCard: boolean = true;
   isLastCard: boolean = false;
