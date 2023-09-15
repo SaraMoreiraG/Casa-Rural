@@ -1,1 +1,14 @@
-<p>photo-card works!</p>
+<article class="card" [style.background-image]="'url(' + cardPhoto + ')'">
+	<div class="card-content">
+		<h4>{{ title }}</h4>
+		<p>{{ content }}</p>
+	</div>
+	<!-- Previus Photo Arrow -->
+	<div class="prev-arrow" *ngIf="!isFirstCard" (click)="prevImage()">
+		<span>&larr;</span>
+	</div>
+	<!-- Next Photo Arrow -->
+	<div class="next-arrow" *ngIf="!isLastCard" (click)="nextImage()">
+		<span>&rarr;</span>
+	</div>
+</article>

@@ -7,82 +7,52 @@
     </p>
     <section class="row-card">
       <!----------- CARD 1 ------------>
-      <article class="card" [style.background-image]="'url(' + card1Photo + ')'">
-        <div class="card-content">
-          <h4>VISTAS PANORÁMICAS</h4>
-          <p>Disfruta de impresionantes vistas de la montaña.
-            temporal.</p>
-        </div>
-        <!-- Previus Photo Arrow -->
-        <div class="prev-arrow" *ngIf="!isFirstCard1" (click)="prevImageCard1()">
-          <span>&rarr;</span>
-        </div>
-        <!-- Next Photo Arrow -->
-        <div class="next-arrow" *ngIf="!isLastCard1" (click)="nextImageCard1()">
-          <span>&rarr;</span>
-        </div>
-      </article>
+      <photo-card [title]="'VISTAS PANORÁMICAS'" [content]="'Disfruta de impresionantes vistas de la montaña.'"
+        [images]="[
+                  '../../assets/images/vistas1.jpg',
+                  '../../assets/images/vistas2.jpg'
+                ]">
+      </photo-card>
       <!----------- CARD 2 ------------>
-      <article class="card" [style.background-image]="'url(' + card2Photo + ')'">
-        <div class="card-content">
-          <h4>COMODIDADES MODERNAS</h4>
-          <p>Nuestra casa está equipada con todas las comodidades.</p>
-        </div>
-        <div class="prev-arrow" *ngIf="!isFirstCard2" (click)="prevImageCard2()">
-          <span>&rarr;</span>
-        </div>
-        <div class="next-arrow" *ngIf="!isLastCard2" (click)="nextImageCard2()">
-          <span>&rarr;</span>
-        </div>
-      </article>
+      <photo-card [title]="'COMODIDADES MODERNAS'" [content]="'Nuestra casa está equipada con todas las comodidades.'"
+        [images]="[
+        '../../assets/images/comedor.jpg',
+        '../../assets/images/cocina.jpg',
+                ]">
+      </photo-card>
       <!----------- CARD 3 ------------>
-      <article class="card" [style.background-image]="'url(' + card3Photo + ')'">
-        <div class="card-content">
-          <h4>NATURALEZA A TU PUERTA</h4>
-          <p>Sal a explorar la belleza natural que rodea nuestra casa.</p>
-        </div>
-        <div class="prev-arrow" *ngIf="!isFirstCard3" (click)="prevImageCard3()">
-          <span>&rarr;</span>
-        </div>
-        <div class="next-arrow" *ngIf="!isLastCard3" (click)="nextImageCard3()">
-          <span>&rarr;</span>
-        </div>
-      </article>
+      <photo-card [title]="'NATURALEZA A TU PUERTA'"
+        [content]="'Sal a explorar la belleza natural que rodea nuestra casa.'"
+        [images]="[
+        '../../assets/images/lago.jpg',
+        '../../assets/images/cascada.jpg',
+                ]">
+      </photo-card>
       <!----------- CARD 4 ------------>
-      <article class="card" [style.background-image]="'url(' + card4Photo + ')'">
-        <div class="card-content">
-          <h4>DESCUBRE LA CULTURA</h4>
-          <p>Sumérgete en la rica cultura de Puebla de Sanabria.
-          </p>
-        </div>
-        <div class="prev-arrow" *ngIf="!isFirstCard4" (click)="prevImageCard4()">
-          <span>&rarr;</span>
-        </div>
-        <div class="next-arrow" *ngIf="!isLastCard4" (click)="nextImageCard4()">
-          <span>&rarr;</span>
-        </div>
-      </article>
+      <photo-card [title]="'DESCUBRE LA CULTURA'" [content]="'Sumérgete en la rica cultura de Puebla de Sanabria.'"
+        [images]="[
+        '../../assets/images/callepuebla.jpg',
+        '../../assets/images/casaluz.jpg',
+                ]">
+      </photo-card>
       <!----------- CARD 5 ------------>
-      <article class="card" [style.background-image]="'url(' + card5Photo + ')'">
-        <div class="card-content">
-          <h4>RELÁJATE Y DESCANSA</h4>
-          <p>Un lugar perfecto para desconectar y relajarte.</p>
-        </div>
-        <div class="prev-arrow" *ngIf="!isFirstCard5" (click)="prevImageCard5()">
-          <span>&rarr;</span>
-        </div>
-        <div class="next-arrow" *ngIf="!isLastCard5" (click)="nextImageCard5()">
-          <span>&rarr;</span>
-        </div>
-      </article>
+      <photo-card [title]="'RELÁJATE Y DESCANSA'" [content]="'Un lugar perfecto para desconectar y relajarte.'"
+        [images]="[
+        '../../assets/images/habitacion1.jpg',
+        '../../assets/images/habitacion2.jpg',
+        '../../assets/images/baño1.jpg',
+        '../../assets/images/ducha.jpg',
+                ]">
+      </photo-card>
       <!----------- CARD 6 ------------>
       <article class="card card6">
-        <a href="https://www.airbnb.es/rooms/945766271880521378?guests=1&adults=1&s=67&unique_share_id=5c02826d-96e3-4941-9fd2-463ae68d8f51" target="_blank">
+        <a href="https://www.airbnb.es/rooms/945766271880521378?guests=1&adults=1&s=67&unique_share_id=5c02826d-96e3-4941-9fd2-463ae68d8f51"
+          target="_blank">
           <div class="card-content booking">
-          <h4>RESERVA TU ESTANCIA</h4>
-          <p>¡Haz tu reserva ahora y experimenta la magia de Puebla de Sanabria!</p>
-        </div>
-      </a>
+            <h4>RESERVA TU ESTANCIA</h4>
+            <p>¡Haz tu reserva ahora y experimenta la magia de Puebla de Sanabria!</p>
+          </div>
+        </a>
       </article>
     </section>
   </div>
