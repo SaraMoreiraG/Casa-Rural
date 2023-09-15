@@ -9,6 +9,22 @@
 	gap: 20px;
 }
 
+@media screen and (max-width: 992px) {
+
+	/* 2 cards in medium screen */
+	.row-card {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+@media screen and (max-width: 576px) {
+
+	/* 1 card in small screen */
+	.row-card {
+		grid-template-columns: repeat(1, 1fr);
+	}
+}
+
 .card {
 	background-size: cover;
 	background-position: center center;
@@ -36,42 +52,41 @@
 	line-height: 1.8;
 }
 
-.card1 {
-	background-image: url("../../assets/images/caravan.jpg");
-}
-
-.card2 {
-	background-image: url("../../assets/images/campingaz.jpg");
-}
-
-.card3 {
-	background-image: url("../../assets/images/book.jpg");
-}
-
-.card4 {
-	background-image: url("../../assets/images/photo.jpg");
-}
-
-.card5 {
-	background-image: url("../../assets/images/volskwagen.jpg");
-}
-
 .card6 {
-	background-image: url("../../assets/images/tent.jpg");
+	background-image: url("../../assets/images/airbnb.jpg");
 }
 
-@media screen and (max-width: 992px) {
-
-	/* 2 cards in medium screen */
-	.row-card {
-		grid-template-columns: repeat(2, 1fr);
-	}
+.booking:hover {
+	padding: 40px;
+	cursor: pointer;
 }
 
-@media screen and (max-width: 576px) {
+.next-arrow,
+.prev-arrow {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	background-color: rgba(255, 255, 255, 0.7);
+	border-radius: 50%;
+	width: 30px;
+	height: 30px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	font-size: 1.5rem;
+	color: #000;
+}
 
-	/* 1 card in small screen */
-	.row-card {
-		grid-template-columns: repeat(1, 1fr);
-	}
+.next-arrow {
+	right: 20px;
+}
+
+.prev-arrow {
+	left: 40px;
+}
+
+.prev-arrow span {
+	transform: rotate(180deg);
+	left: 40px;
 }

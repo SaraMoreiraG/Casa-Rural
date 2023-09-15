@@ -17,6 +17,7 @@ import { TestimonialsComponent } from './testimonials/testimonials.component';
 import { ContactComponent } from './contact/contact.component';
 import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { PhotoCardComponent } from './photo-card/photo-card.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { NavbarComponent } from './navbar/navbar.component';
     TestimonialsComponent,
     ContactComponent,
     FooterComponent,
-    NavbarComponent
+    NavbarComponent,
+    PhotoCardComponent
   ],
   imports: [
     BrowserModule,
