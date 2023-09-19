@@ -12,6 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatStepperModule} from '@angular/material/stepper';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,6 +30,7 @@ import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PhotoCardComponent } from './photo-card/photo-card.component';
 import { BookingComponent } from './booking/booking.component';
+import { PaymentComponent } from './payment/payment.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,8 @@ import { BookingComponent } from './booking/booking.component';
     FooterComponent,
     NavbarComponent,
     PhotoCardComponent,
-    BookingComponent
+    BookingComponent,
+    PaymentComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +61,8 @@ import { BookingComponent } from './booking/booking.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatFormFieldModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatStepperModule
   ],
   providers: [ScrollService, DatePipe],
   bootstrap: [AppComponent]
