@@ -43,7 +43,8 @@ p{
 #gallery,
 #activities,
 #services,
-#contact {
+#contact,
+#booking {
 	scroll-margin-top: 75px;
 }
 .container-center {
@@ -120,3 +121,6 @@ p{
 	background-color: #fff;
 	color: #000;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
