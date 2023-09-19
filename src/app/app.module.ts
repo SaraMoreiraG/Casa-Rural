@@ -12,7 +12,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import {MatStepperModule} from '@angular/material/stepper';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatIconModule } from '@angular/material/icon';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -62,7 +63,8 @@ import { PaymentComponent } from './payment/payment.component';
     MatNativeDateModule,
     MatFormFieldModule,
     ReactiveFormsModule,
-    MatStepperModule
+    MatStepperModule,
+    MatIconModule
   ],
   providers: [ScrollService, DatePipe],
   bootstrap: [AppComponent]

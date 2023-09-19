@@ -11,6 +11,7 @@ export interface Booking {
   guests: number;
   dateIn: Date;
   dateOut: Date;
+  price: number;
 }
 
 @Component({
@@ -38,6 +39,7 @@ export class BookingComponent {
       guests: ['', [Validators.required, Validators.max(4)]],
       dateIn: [null, Validators.required],
       dateOut: [null, Validators.required],
+      price: this.totalPrice
     });
 
     // Fetch booked dates from the server

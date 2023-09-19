@@ -1,17 +1,31 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Input,
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  OnDestroy,
+  ViewChild,
+  OnInit,
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Stripe, loadStripe } from '@stripe/stripe-js';
 
 @Component({
   selector: 'payment',
   templateUrl: './payment.component.html',
   styleUrls: ['./payment.component.css'],
 })
-export class PaymentComponent implements OnInit {
+export class PaymentComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input() bookingForm!: FormGroup;
   dateIn: string = '';
   dateOut: string = '';
-  stripePromise: Promise<Stripe | null>;
+
+  @ViewChild('cardInfo')
+  cardInfo!: ElementRef;
+  _totalAmount: number = 0;
+  card: any;
+  cardHandler = this.onChange.bind(this);
+  cardError: string = '';
 
   // Format the date as "dd/mm/yyyy"
   options = { day: '2-digit', month: '2-digit', year: 'numeric' };
@@ -24,12 +38,12 @@ export class PaymentComponent implements OnInit {
   });
   isLinear = false;
 
-  constructor(private _formBuilder: FormBuilder) {
-    this.stripePromise = loadStripe('pk_live_51Nrv2cGN89IRajaVrofIp1IEbv2h6xHLt86O02Zc6fbXAyusX80IFQMqK0OghGG3yB3ilwK0YuyxnWUI0GIGjoMf00VdgNEXpH'); // Reemplaza 'your-public-key' con tu clave pública de Stripe.
-  }
+  constructor(
+    private _formBuilder: FormBuilder,
+    private cd: ChangeDetectorRef
+  ) {}
 
   ngOnInit() {
-    // Subscribe to the dateIn control's value changes
     this.bookingForm.get('dateIn')?.valueChanges.subscribe((value) => {
       if (value) {
         this.dateIn = value.toLocaleDateString('en-GB', this.options);
@@ -47,50 +61,61 @@ export class PaymentComponent implements OnInit {
     });
   }
 
-  async createPayment() {
-    const stripe = await this.stripePromise;
-
-    if (stripe) {
-      // Recopila los datos de pago del usuario aquí, como el número de tarjeta, la fecha de vencimiento y el código CVC.
-
-      // Crea un token de tarjeta de crédito con Stripe
-      const result = await stripe.createToken(cardElement); // Reemplaza 'cardElement' con tu elemento de tarjeta de crédito.
-
-      // Envía el token al servidor Node.js para realizar el pago
-      if (result.token) {
-        const response = await this.sendTokenToServer(result.token);
-
-        // Maneja la respuesta del servidor y muestra un mensaje al usuario
-        if (response.success) {
-          console.log('Pago exitoso.');
-        } else {
-          console.error('Error al procesar el pago.');
-        }
-      }
+  ngOnDestroy() {
+    if (this.card) {
+      // We remove event listener here to keep memory clean
+      this.card.removeEventListener('change', this.cardHandler);
+      this.card.destroy();
     }
   }
 
-  // Envía el token de tarjeta de crédito al servidor Node.js
-  async sendTokenToServer(token: any): Promise<{ success: boolean }> {
-    try {
-      const response = await fetch('http://tu-servidor-nodejs.com/pago', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ token }),
-      });
+  ngAfterViewInit() {
+    this.initiateCardElement();
+  }
 
-      if (response.ok) {
-        return { success: true };
-      } else {
-        return { success: false };
-      }
-    } catch (error) {
-      console.error('Error al enviar el token al servidor:', error);
-      return { success: false };
+  initiateCardElement() {
+    // Giving a base style here, but most of the style is in scss file
+    const cardStyle = {
+      base: {
+        color: '#32325d',
+        fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+        fontSmoothing: 'antialiased',
+        fontSize: '16px',
+        '::placeholder': {
+          color: '#aab7c4',
+        },
+      },
+      invalid: {
+        color: '#fa755a',
+        iconColor: '#fa755a',
+      },
+    };
+    this.card = elements.create('card', { cardStyle });
+    this.card.mount(this.cardInfo.nativeElement);
+    this.card.addEventListener('change', this.cardHandler);
+  }
+
+  onChange({ error }: { error: any }) {
+    if (error) {
+      this.cardError = error.message;
+    } else {
+      this.cardError = '';
+    }
+    this.cd.detectChanges();
+  }
+
+  async createStripeToken() {
+    const { token, error } = await stripe.createToken(this.card);
+    if (token) {
+      console.log(token);
+    } else {
+      this.onError(error);
+    }
+  }
+
+  onError(error: any) {
+    if (error.message) {
+      this.cardError = error.message;
     }
   }
 }
-
-
