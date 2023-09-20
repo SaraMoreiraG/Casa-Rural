@@ -19,6 +19,7 @@ export interface Booking {
   templateUrl: './booking.component.html',
   styleUrls: ['./booking.component.css'],
 })
+
 export class BookingComponent {
   bookingForm: FormGroup;
   bookedDates: any[] = [];
@@ -26,6 +27,8 @@ export class BookingComponent {
   roomPrice: number = 0;
   totalRoom: number = 0;
   totalPrice: number = 0;
+  formOk: boolean = false;
+  confirmedData: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -35,11 +38,11 @@ export class BookingComponent {
     this.bookingForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      phone: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      phone: ['', [Validators.required, Validators.pattern('^[0-9]{9}$')]],
       guests: ['', [Validators.required, Validators.max(4)]],
       dateIn: [null, Validators.required],
       dateOut: [null, Validators.required],
-      price: this.totalPrice
+      price: [null],
     });
 
     // Fetch booked dates from the server
@@ -110,7 +113,7 @@ export class BookingComponent {
     return false;
   }
 
-  // Function to calculate the number of nights
+  // Function to calculate the number of nights and price
   calculatePrice() {
     const startDateValue = this.bookingForm.get('dateIn')?.value;
     const endDateValue = this.bookingForm.get('dateOut')?.value;
@@ -138,8 +141,8 @@ export class BookingComponent {
         // Between April and June
         this.roomPrice = 87;
       } else if (
-        (startMonth >= 6 && startMonth <= 8) ||
-        (endMonth >= 6 && endMonth <= 8)
+        (startMonth >= 6 && startMonth <= 11) ||
+        (endMonth >= 6 && endMonth <= 11)
       ) {
         // Between July and September
         this.roomPrice = 98;
@@ -147,6 +150,8 @@ export class BookingComponent {
 
       this.totalRoom = this.nights * this.roomPrice;
       this.totalPrice = this.totalRoom + 25;
+      // Update the price field in the form control
+      this.bookingForm.get('price')?.setValue(this.totalPrice);
     } else {
       this.nights = 0;
     }
@@ -155,37 +160,41 @@ export class BookingComponent {
   onSubmit() {
     if (this.bookingForm.valid) {
       // Format date values before sending to the backend
-      const formattedBooking = {
-        ...this.bookingForm.value,
-        dateIn: this.datePipe.transform(
-          this.bookingForm.value.dateIn,
-          'yyyy-MM-dd HH:mm:ss'
-        ),
-        dateOut: this.datePipe.transform(
-          this.bookingForm.value.dateOut,
-          'yyyy-MM-dd HH:mm:ss'
-        ),
-      };
-
-      // Handle form submission here, e.g., send the data to your backend
-      console.log('Booking submitted:', formattedBooking);
-      const backendUrl = 'http://localhost:3000/bookings/create-booking';
-
-      // Send the data to the backend
-      this.http.post(backendUrl, formattedBooking).subscribe(
-        (response: any) => {
-          console.log('Response:', response);
-
-          // Handle the response from the backend as needed
-        },
-        (error) => {
-          console.error('Error:', error);
-
-          // Handle errors from the backend
-        }
-      );
+      // const formattedBooking = {
+      //   ...this.bookingForm.value,
+      //   dateIn: this.datePipe.transform(
+      //     this.bookingForm.value.dateIn,
+      //     'yyyy-MM-dd HH:mm:ss'
+      //   ),
+      //   dateOut: this.datePipe.transform(
+      //     this.bookingForm.value.dateOut,
+      //     'yyyy-MM-dd HH:mm:ss'
+      //   ),
+      // };
+    console.log(this.bookingForm.value)
+      this.formOk = true;
     } else {
       // Handle invalid form
+
+      console.log("There are errors in the form")
     }
   }
+
+      // // Handle form submission here, e.g., send the data to your backend
+      // console.log('Booking submitted:', formattedBooking);
+      // const backendUrl = 'http://localhost:3000/bookings/create-booking';
+
+      // // Send the data to the backend
+      // this.http.post(backendUrl, formattedBooking).subscribe(
+      //   (response: any) => {
+      //     console.log('Response:', response);
+
+      //     // Handle the response from the backend as needed
+      //   },
+      //   (error) => {
+      //     console.error('Error:', error);
+
+      //     // Handle errors from the backend
+      //   }
+      // );
 }

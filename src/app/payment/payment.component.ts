@@ -17,18 +17,20 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class PaymentComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input() bookingForm!: FormGroup;
+  @Input() confirmedData: boolean = false;
   dateIn: string = '';
   dateOut: string = '';
 
+  // Format the date as "dd/mm/yyyy"
+  options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+
+  formattedDates: { [key: string]: string } = {};
+
   @ViewChild('cardInfo')
   cardInfo!: ElementRef;
-  _totalAmount: number = 0;
   card: any;
   cardHandler = this.onChange.bind(this);
   cardError: string = '';
-
-  // Format the date as "dd/mm/yyyy"
-  options = { day: '2-digit', month: '2-digit', year: 'numeric' };
 
   firstFormGroup = this._formBuilder.group({
     firstCtrl: ['', Validators.required],
@@ -44,21 +46,61 @@ export class PaymentComponent implements OnInit, OnDestroy, AfterViewInit {
   ) {}
 
   ngOnInit() {
+    this.updateFormattedDates();
+
     this.bookingForm.get('dateIn')?.valueChanges.subscribe((value) => {
       if (value) {
         this.dateIn = value.toLocaleDateString('en-GB', this.options);
+        this.formattedDates['dateIn'] = this.dateIn;
       } else {
         this.dateIn = '';
+        this.formattedDates['dateIn'] = '';
       }
     });
 
     this.bookingForm.get('dateOut')?.valueChanges.subscribe((value) => {
       if (value) {
         this.dateOut = value.toLocaleDateString('en-GB', this.options);
+        this.formattedDates['dateOut'] = this.dateOut;
       } else {
         this.dateOut = '';
+        this.formattedDates['dateOut'] = '';
       }
     });
+  }
+
+  private updateFormattedDates() {
+    const dateInControl = this.bookingForm.get('dateIn');
+    const dateOutControl = this.bookingForm.get('dateOut');
+
+    if (dateInControl && dateInControl.value) {
+      this.dateIn = dateInControl.value.toLocaleDateString('en-GB', this.options);
+      this.formattedDates['dateIn'] = this.dateIn;
+    }
+
+    if (dateOutControl && dateOutControl.value) {
+      this.dateOut = dateOutControl.value.toLocaleDateString('en-GB', this.options);
+      this.formattedDates['dateOut'] = this.dateOut;
+    }
+  }
+
+  confirmingData(){
+    this.confirmedData = !this.confirmedData;
+    console.log(this.confirmedData);
+    console.log(this.bookingForm)
+    const formControls = this.bookingForm.controls;
+
+    if (this.confirmedData) {
+      // Disable all form controls if confirmedData is true
+      Object.keys(formControls).forEach(controlName => {
+        formControls[controlName].disable();
+      });
+    } else {
+      // Enable all form controls if confirmedData is false
+      Object.keys(formControls).forEach(controlName => {
+        formControls[controlName].enable();
+      });
+    }
   }
 
   ngOnDestroy() {

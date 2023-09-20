@@ -25,16 +25,20 @@
 					</div>
 					<div class="d-flex justify-content-between">
 						<p class="title">Llegada: </p>
-						<p class="info">{{ dateIn }}</p>
+						<p class="info">{{ formattedDates['dateIn'] }}</p>
 					</div>
 					<div class="d-flex justify-content-between">
 						<p class="title">Salida: </p>
-						<p class="info">{{ dateOut }}</p>
+						<p class="info">{{ formattedDates['dateOut'] }}</p>
+					</div>
+					<div class="d-flex justify-content-between">
+						<p class="title">Precio: </p>
+						<p class="info">{{ bookingForm.value.price }}</p>
 					</div>
 				</div>
 			</div>
 			<div>
-				<button matStepperNext class="btn-super-small">Siguiente</button>
+				<button matStepperNext class="btn-super-small" (click)="confirmingData()">Siguiente</button>
 			</div>
 		</form>
 	</mat-step>
@@ -44,8 +48,9 @@
 			<label for="card-info">Card Info</label>
 			<div id="form-field">
 				<div id="card-info" #cardInfo></div>
-				<button id="submit-button" type="submit">
-					Pay ${{_totalAmount}}
+				<button matStepperPrevious class="btn-super-small" (click)="confirmingData()">Modificar datos</button>
+				<button id="submit-button" type="submit" class="btn-super-small">
+					Pagar {{ bookingForm.value.price }}€
 				</button>
 				<mat-error id="card-errors" role="alert" *ngIf="cardError">
 					<mat-icon style="color: #f44336">cancel</mat-icon>
