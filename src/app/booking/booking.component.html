@@ -7,6 +7,7 @@
 		<form (ngSubmit)="onSubmit()" [formGroup]="bookingForm">
 			<div class="row justify-content-evenly">
 				<div class="left col-5">
+					<!-- Input fields for name, email, phone, and guests -->
 					<mat-form-field class="mb-2">
 						<mat-label>Nombre</mat-label>
 						<input matInput type="text" placeholder="Nombre" formControlName="name">
@@ -35,6 +36,7 @@
 				</div>
 				<div class="right col-6 align-items-between">
 					<div class="row m-0">
+						<!-- Date inputs for arrival and departure -->
 						<mat-form-field class="col-6">
 							<mat-label>Llegada</mat-label>
 							<input matInput [matDatepickerFilter]="startDateFilter" [matDatepicker]="startDatePicker"
@@ -49,11 +51,12 @@
 							<mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
 							<mat-datepicker #endDatePicker></mat-datepicker>
 						</mat-form-field>
-						<mat-error *ngIf="errorFetchingBookings" >
+						<mat-error *ngIf="errorFetchingBookings">
 							Imposible comprobar disponibilidad, llamanos al 690 78 46 95.
 						</mat-error>
 					</div>
 					<div class="row m-0" *ngIf="totalPrice == 0">
+						<!-- Seasonal prices -->
 						<div class="col-6">
 							<p>Temporada baja</p>
 							<p>Temporada media</p>
@@ -66,6 +69,7 @@
 						</div>
 					</div>
 					<div class="row m-0" *ngIf="totalPrice != 0">
+						<!-- Pricing details -->
 						<div class="col-6">
 							<p>{{ roomPrice }} € x {{ nights }} noches</p>
 							<p>Gastos de limpieza</p>
