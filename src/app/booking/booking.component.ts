@@ -1,28 +1,17 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { DatePipe } from '@angular/common';
 import { Subscription } from 'rxjs';
-
-export interface Booking {
-  name: string;
-  email: string;
-  phone: string;
-  guests: number;
-  dateIn: Date;
-  dateOut: Date;
-  price: number;
-}
 
 @Component({
   selector: 'booking',
   templateUrl: './booking.component.html',
   styleUrls: ['./booking.component.css'],
 })
-
-export class BookingComponent {
+export class BookingComponent implements OnDestroy {
   bookingForm: FormGroup;
   bookedDates: any[] = [];
+  errorFetchingBookings: boolean = false;
   nights: number = 0;
   roomPrice: number = 0;
   totalRoom: number = 0;
@@ -30,11 +19,11 @@ export class BookingComponent {
   formOk: boolean = false;
   confirmedData: boolean = false;
 
-  constructor(
-    private fb: FormBuilder,
-    private http: HttpClient,
-    private datePipe: DatePipe
-  ) {
+  // Declare a subscription variable to handle the booked dates subscription
+  private bookedDatesSubscription: Subscription | undefined;
+
+  constructor(private fb: FormBuilder, private http: HttpClient) {
+    // Initialize the booking form
     this.bookingForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -48,9 +37,6 @@ export class BookingComponent {
     // Fetch booked dates from the server
     this.fetchBookedDates();
   }
-
-  // Declare a subscription variable to handle the subscription
-  private bookedDatesSubscription: Subscription | undefined;
 
   // Fetch booked dates from the server
   fetchBookedDates() {
@@ -66,7 +52,10 @@ export class BookingComponent {
         this.bookedDates = response;
       },
       (error) => {
+        this.errorFetchingBookings = true;
         console.error('Error fetching booked dates:', error);
+        this.bookingForm.get('dateIn')?.disable();
+        this.bookingForm.get('dateOut')?.disable();
       }
     );
   }
@@ -81,8 +70,15 @@ export class BookingComponent {
   // Filter function for the start date
   startDateFilter = (d: Date | null): boolean => {
     const currentDate = new Date();
-    // Prevent selecting dates before the current date
-    return d !== null && d >= currentDate && !this.isDateInBookedRange(d);
+    const endDateValue = this.bookingForm.get('dateOut')?.value; // Get the endDate value
+
+    // Prevent selecting dates before the current date and after the endDate
+    return (
+      d !== null &&
+      d >= currentDate &&
+      (!endDateValue || d <= endDateValue) && // Check if startDate is before or equal to endDate
+      !this.isDateInBookedRange(d)
+    );
   };
 
   // Filter function for the end date
@@ -91,13 +87,15 @@ export class BookingComponent {
     const startDateValue = this.bookingForm.get('dateIn')?.value;
 
     // Prevent selecting dates before the current date and before the start date
-    // Also, prevent selecting dates within booked date ranges
-    return (
-      d !== null &&
-      d >= currentDate &&
+    const selectedDate = d || currentDate;
+    const isOverlapping =
       startDateValue !== null &&
-      d >= startDateValue &&
-      !this.isDateInBookedRange(d)
+      this.isDateOverlapping(startDateValue, selectedDate);
+    return (
+      selectedDate >= currentDate &&
+      startDateValue !== null &&
+      selectedDate >= startDateValue &&
+      !isOverlapping
     );
   };
 
@@ -107,6 +105,24 @@ export class BookingComponent {
       const startDate = new Date(bookedDateRange.startDate);
       const endDate = new Date(bookedDateRange.endDate);
       if (date >= startDate && date <= endDate) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  // Function to check if a date range overlaps with any booked date range
+  isDateOverlapping(startDate: Date, endDate: Date): boolean {
+    for (const bookedDateRange of this.bookedDates) {
+      const bookedStartDate = new Date(bookedDateRange.startDate);
+      const bookedEndDate = new Date(bookedDateRange.endDate);
+
+      // Check if the provided date range overlaps with the booked date range
+      if (
+        (startDate <= bookedEndDate && startDate >= bookedStartDate) ||
+        (endDate >= bookedStartDate && endDate <= bookedEndDate) ||
+        (startDate <= bookedStartDate && endDate >= bookedEndDate)
+      ) {
         return true;
       }
     }
@@ -157,44 +173,12 @@ export class BookingComponent {
     }
   }
 
+  // Handle form submission
   onSubmit() {
     if (this.bookingForm.valid) {
-      // Format date values before sending to the backend
-      // const formattedBooking = {
-      //   ...this.bookingForm.value,
-      //   dateIn: this.datePipe.transform(
-      //     this.bookingForm.value.dateIn,
-      //     'yyyy-MM-dd HH:mm:ss'
-      //   ),
-      //   dateOut: this.datePipe.transform(
-      //     this.bookingForm.value.dateOut,
-      //     'yyyy-MM-dd HH:mm:ss'
-      //   ),
-      // };
-    console.log(this.bookingForm.value)
       this.formOk = true;
     } else {
-      // Handle invalid form
-
-      console.log("There are errors in the form")
+      console.log('There are errors in the form');
     }
   }
-
-      // // Handle form submission here, e.g., send the data to your backend
-      // console.log('Booking submitted:', formattedBooking);
-      // const backendUrl = 'http://localhost:3000/bookings/create-booking';
-
-      // // Send the data to the backend
-      // this.http.post(backendUrl, formattedBooking).subscribe(
-      //   (response: any) => {
-      //     console.log('Response:', response);
-
-      //     // Handle the response from the backend as needed
-      //   },
-      //   (error) => {
-      //     console.error('Error:', error);
-
-      //     // Handle errors from the backend
-      //   }
-      // );
 }
