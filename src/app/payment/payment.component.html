@@ -1,46 +1,80 @@
-<button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
-	{{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
-</button>
-<mat-stepper [linear]="isLinear" #stepper>
-	<mat-step [stepControl]="firstFormGroup">
-		<form [formGroup]="firstFormGroup">
-			<ng-template matStepLabel>Confirma tus datos</ng-template>
-			<div class="row m-2">
-				<div class="wrapper col-5 p-3">
-					<div class="d-flex justify-content-between">
-						<p class="title">Nombre: </p>
-						<p class="info">{{ bookingForm.value.name }}</p>
-					</div>
-					<div class="d-flex justify-content-between text-wrap">
-						<p class="title">Email: </p>
-						<p class="info">{{ bookingForm.value.email }}</p>
-					</div>
-					<div class="d-flex justify-content-between">
-						<p class="title">Teléfono: </p>
-						<p class="info">{{ bookingForm.value.phone }}</p>
-					</div>
-					<div class="d-flex justify-content-between">
-						<p class="title">Número de huéspedes: </p>
-						<p class="info">{{ bookingForm.value.guests }}</p>
-					</div>
-					<div class="d-flex justify-content-between">
-						<p class="title">Llegada: </p>
-						<p class="info">{{ formattedDates['dateIn'] }}</p>
-					</div>
-					<div class="d-flex justify-content-between">
-						<p class="title">Salida: </p>
-						<p class="info">{{ formattedDates['dateOut'] }}</p>
-					</div>
-					<div class="d-flex justify-content-between">
-						<p class="title">Precio: </p>
-						<p class="info">{{ bookingForm.value.price }}</p>
-					</div>
-				</div>
+<mat-stepper [linear]=true #stepper>
+	<mat-step [completed]=false>
+		<ng-template matStepLabel>Realiza la reserva</ng-template>
+		<div class="row m-0">
+			<div class="invoice col-6">
+				<header>
+					<section>
+						<h1>Resumen del alquiler</h1>
+						<span>{{ formatToday }}</span>
+					</section>
+					<section>
+						<span>89 289</span>
+					</section>
+				</header>
+				<main>
+					<section class="invoice-details">
+						<figure>
+							<span><strong>Nombre:</strong></span>
+							<span>{{ bookingData.name }}</span>
+						</figure>
+						<figure>
+							<span><strong>Email:</strong></span>
+							<span>{{ bookingData.email }}</span>
+						</figure>
+						<figure>
+							<span><strong>Teléfono:</strong></span>
+							<span>{{ bookingData.phone }}</span>
+						</figure>
+						<figure>
+							<span><strong>Número de huéspedes:</strong></span>
+							<span>{{ bookingData.guests }}</span>
+						</figure>
+						<figure>
+							<span><strong>Fechas de entrada:</strong></span>
+							<span>{{ bookingData.dateIn }}</span>
+						</figure>
+						<figure>
+							<span><strong>Fechas de salida:</strong></span>
+							<span>{{ bookingData.dateOut }}</span>
+						</figure>
+					</section>
+
+					<section class="invoice-price">
+						<figure>
+						<span>Total</span>
+						<span>{{ bookingData.price }}€</span>
+					</figure>
+					</section>
+				</main>
+
+				<section class="footer">
+					<button class="btn-black" (click)="scrollTo('booking')">Cambiar datos</button>
+				</section>
 			</div>
-			<div>
-				<button matStepperNext class="btn-super-small" (click)="confirmingData()">Siguiente</button>
+			<div class="invoice col-5 ms-2">
+				<header>
+					<section>
+						<h1>Datos de la tarjeta</h1>
+					</section>
+				</header>
+				<section class="payment">
+					<form [formGroup]="firstFormGroup" (ngSubmit)="createStripeToken()" class="checkout">
+						<div class="dots">
+							<label for="card-info">Card Info</label>
+							<div id="form-field">
+								<div id="card-info" #cardInfo></div>
+								<mat-error id="card-errors" role="alert" *ngIf="cardError">
+									<mat-icon style="color: #f44336">cancel</mat-icon>
+									&nbsp;{{ cardError }}
+								</mat-error>
+							</div>
+						</div>
+						<button id="submit-button" type="submit" class="btn-big mt-5">Pagar ahora</button>
+					</form>
+				</section>
 			</div>
-		</form>
+		</div>
 	</mat-step>
 	<mat-step [stepControl]="secondFormGroup" label="Fill out your address">
 		<!-- stripe-payment.component.html -->
@@ -48,9 +82,9 @@
 			<label for="card-info">Card Info</label>
 			<div id="form-field">
 				<div id="card-info" #cardInfo></div>
-				<button matStepperPrevious class="btn-super-small" (click)="confirmingData()">Modificar datos</button>
+				<button matStepperPrevious class="btn-super-small">Previous</button>
 				<button id="submit-button" type="submit" class="btn-super-small">
-					Pagar {{ bookingForm.value.price }}€
+					Pagar {{ bookingData.price }}€
 				</button>
 				<mat-error id="card-errors" role="alert" *ngIf="cardError">
 					<mat-icon style="color: #f44336">cancel</mat-icon>

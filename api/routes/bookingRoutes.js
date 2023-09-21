@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const cors = require("cors");
+const stripe = require('stripe')('');
 const mysql = require("mysql2"); // Require the MySQL module
 
 router.use(cors());
@@ -24,20 +25,20 @@ connection.connect((err) => {
 
 // Create a new booking (HTTP POST)
 router.post("/create-booking", async (req, res) => {
-  const { name, email, phone, guests, dateIn, dateOut } = req.body;
+  const { name, email, phone, guests, dateIn, dateOut, price } = req.body;
 
-  if (!name || !email || !phone || !guests || !dateIn || !dateOut) {
+  if (!name || !email || !phone || !guests || !dateIn || !dateOut || !price) {
     return res.status(400).json({ error: "All fields are required" });
   }
 
   // Create a MySQL INSERT query to add the booking to the database
   const insertQuery = `
-	  INSERT INTO bookings (name, email, phone, guests, date_in, date_out)
-	  VALUES (?, ?, ?, ?, ?, ?)
+	  INSERT INTO bookings (name, email, phone, guests, date_in, date_out, price)
+	  VALUES (?, ?, ?, ?, ?, ?, ?)
 	`;
 
   // Values to be inserted into the query
-  const values = [name, email, phone, guests, dateIn, dateOut];
+  const values = [name, email, phone, guests, dateIn, dateOut, price];
 
   // Execute the query
   connection.query(insertQuery, values, (err, result) => {
@@ -76,7 +77,7 @@ router.get("/get-all-booked-dates", (req, res) => {
 
 	  res.json(bookedDates);
 	});
-  });
+});
 
 
 // Get all bookings (HTTP GET)
@@ -158,5 +159,55 @@ router.put("/update-booking/:id", (req, res) => {
     res.status(200).json({ message: "Booking updated successfully" });
   });
 });
+
+// Define a route to handle Stripe token creation
+router.post("/create-payment", async (req, res) => {
+  const { info, token } = req.body;
+
+  if (!info.name || !info.email || !info.phone || !info.guests || !info.dateIn || !info.dateOut || !info.price || !token) {
+    return res.status(400).json({ error: "All fields are required" });
+  }
+
+  try {
+    // Create a string description from the info object
+    const description = `Booking: ${info.name}, Email: ${info.email}, Phone: ${info.phone}, Guests: ${info.guests}, Price: €${info.price}, Check-in: ${info.dateIn}, Check-out: ${info.dateOut}`;
+    // Create a charge using the Stripe token
+    const charge = await stripe.charges.create({
+      source: token.id,
+      amount: info.price * 100, // Adjust the amount as needed
+      currency: 'eur', // Adjust the currency as needed
+      description: description,
+    });
+
+    // Create a MySQL INSERT query to add the booking to the database
+    const insertQuery = `
+      INSERT INTO bookings (name, email, phone, guests, date_in, date_out, price)
+      VALUES (?, ?, ?, ?, ?, ?, ?)
+    `;
+
+    // Values to be inserted into the query
+    const values = [info.name, info.email, info.phone, info.guests, info.dateIn, info.dateOut, info.price];
+
+    // Execute the query
+    connection.query(insertQuery, values, (err, result) => {
+      if (err) {
+        console.error("Error creating booking:", err);
+        return res
+          .status(500)
+          .json({ error: "An error occurred while creating the booking" });
+      }
+
+      // Return the newly created booking ID or any other response as needed
+      res.status(201).json({
+        bookingId: result.insertId,
+        message: "Booking created successfully",
+      });
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Payment error' });
+  }
+});
+
 
 module.exports = router;

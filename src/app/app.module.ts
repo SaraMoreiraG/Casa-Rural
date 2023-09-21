@@ -32,6 +32,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { PhotoCardComponent } from './photo-card/photo-card.component';
 import { BookingComponent } from './booking/booking.component';
 import { PaymentComponent } from './payment/payment.component';
+import { BillDetailsComponent } from './bill-details/bill-details.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { PaymentComponent } from './payment/payment.component';
     NavbarComponent,
     PhotoCardComponent,
     BookingComponent,
-    PaymentComponent
+    PaymentComponent,
+    BillDetailsComponent
   ],
   imports: [
     BrowserModule,

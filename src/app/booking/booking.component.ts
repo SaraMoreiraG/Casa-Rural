@@ -2,6 +2,7 @@ import { Component, Input, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Subscription } from 'rxjs';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'booking',
@@ -10,6 +11,7 @@ import { Subscription } from 'rxjs';
 })
 export class BookingComponent implements OnDestroy {
   bookingForm: FormGroup;
+  bookingData: any;
   bookedDates: any[] = [];
   errorFetchingBookings: boolean = false;
   nights: number = 0;
@@ -22,7 +24,11 @@ export class BookingComponent implements OnDestroy {
   // Declare a subscription variable to handle the booked dates subscription
   private bookedDatesSubscription: Subscription | undefined;
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
+  constructor(
+    private fb: FormBuilder,
+    private http: HttpClient,
+    private datePipe: DatePipe
+  ) {
     // Initialize the booking form
     this.bookingForm = this.fb.group({
       name: ['', Validators.required],
@@ -134,6 +140,7 @@ export class BookingComponent implements OnDestroy {
     const startDateValue = this.bookingForm.get('dateIn')?.value;
     const endDateValue = this.bookingForm.get('dateOut')?.value;
 
+    // Calculate nights number
     if (startDateValue && endDateValue) {
       const startTime = startDateValue.getTime();
       const endTime = endDateValue.getTime();
@@ -166,6 +173,7 @@ export class BookingComponent implements OnDestroy {
 
       this.totalRoom = this.nights * this.roomPrice;
       this.totalPrice = this.totalRoom + 25;
+
       // Update the price field in the form control
       this.bookingForm.get('price')?.setValue(this.totalPrice);
     } else {
@@ -176,9 +184,43 @@ export class BookingComponent implements OnDestroy {
   // Handle form submission
   onSubmit() {
     if (this.bookingForm.valid) {
+      // Disable form inputs
+      const formControls = this.bookingForm.controls;
+      Object.keys(formControls).forEach((controlName) => {
+        formControls[controlName].disable();
+      });
+      // Update bookingData variable and format dateIn and dateOut
+      this.bookingData = this.bookingForm.value;
+      if (this.bookingData.dateIn) {
+        const dateIn = new Date(this.bookingData.dateIn);
+        this.bookingData.dateIn = this.datePipe.transform(
+          dateIn,
+          'dd-MM-yyyy'
+        );
+      }
+      if (this.bookingData.dateOut) {
+        const dateOut = new Date(this.bookingData.dateOut);
+        this.bookingData.dateOut = this.datePipe.transform(
+          dateOut,
+          'dd-MM-yyyy'
+        );
+      }
+      // Set form to Ok
       this.formOk = true;
     } else {
       console.log('There are errors in the form');
+      console.log(this.bookingForm.value);
     }
+  }
+
+  // Function to enable input forms
+  modifyData() {
+    // Enable form inputs
+    const formControls = this.bookingForm.controls;
+    Object.keys(formControls).forEach((controlName) => {
+      formControls[controlName].enable();
+    });
+    // Set form to false
+    this.formOk = false;
   }
 }

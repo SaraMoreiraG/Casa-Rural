@@ -86,10 +86,12 @@
 							<p>{{ totalPrice }} €</p>
 						</div>
 					</div>
-					<button class="btn-white w-100" type="submit">Reservar</button>
+					<button *ngIf="!formOk" class="btn-white w-100" type="submit">Reservar</button>
+					<button *ngIf="formOk" class="btn-white w-100" (click)="modifyData()">Modificar reserva</button>
 				</div>
 			</div>
 		</form>
-		<payment *ngIf="formOk" [bookingForm]="bookingForm"></payment>
+		<!-- <payment *ngIf="formOk" [bookingData]="bookingData"></payment> -->
+		<payment></payment>
 	</div>
 </div>
