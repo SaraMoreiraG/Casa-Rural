@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const cors = require("cors");
-const stripe = require('stripe')('');
+const stripe = require('stripe')('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');
 const mysql = require("mysql2"); // Require the MySQL module
 
 router.use(cors());
@@ -204,7 +204,7 @@ router.post("/create-payment", async (req, res) => {
       });
     });
   } catch (error) {
-    console.error(error);
+    console.error('Error en rutas', error);
     return res.status(500).json({ error: 'Payment error' });
   }
 });

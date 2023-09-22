@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import { DatePipe } from '@angular/common';
+import { PaymentStatusService } from '../payment-status.service';
 
 @Component({
   selector: 'booking',
@@ -19,7 +20,7 @@ export class BookingComponent implements OnDestroy {
   totalRoom: number = 0;
   totalPrice: number = 0;
   formOk: boolean = false;
-  confirmedData: boolean = false;
+  paymentCompleted: boolean = false;
 
   // Declare a subscription variable to handle the booked dates subscription
   private bookedDatesSubscription: Subscription | undefined;
@@ -27,7 +28,8 @@ export class BookingComponent implements OnDestroy {
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private paymentStatusService: PaymentStatusService
   ) {
     // Initialize the booking form
     this.bookingForm = this.fb.group({
@@ -42,6 +44,11 @@ export class BookingComponent implements OnDestroy {
 
     // Fetch booked dates from the server
     this.fetchBookedDates();
+
+    // Subscribe to check paymentCompleted value
+    this.paymentStatusService.paymentCompleted$.subscribe((value) => {
+      this.paymentCompleted = value;
+    });
   }
 
   // Fetch booked dates from the server

@@ -14,6 +14,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { Booking } from '../shared/booking';
 import { ScrollService } from '../scroll.service';
+import { PaymentStatusService } from '../payment-status.service';
 
 @Component({
   selector: 'payment',
@@ -21,23 +22,11 @@ import { ScrollService } from '../scroll.service';
   styleUrls: ['./payment.component.css'],
 })
 export class PaymentComponent implements AfterViewInit {
-  // @Input() bookingData!: Booking;
-  bookingData = {
-    name: 'sd',
-    email: 'string',
-    phone: 'string',
-    guests: 2,
-    dateIn: new Date('23/09/2022'),
-    dateOut: new Date('24-08-2029'),
-    price: 2,
-  };
+  @Input() bookingData!: Booking;
   today = new Date();
   formatToday = this.datePipe.transform(this.today, 'dd-MM-yyyy');
-  @ViewChild('stepper') stepper!: MatStepper;
-  confirmedData: boolean = false;
-  dateIn: string = '';
-  dateOut: string = '';
-  s1Completed: boolean = false;
+  paymentCompleted: boolean;
+  paymentError: boolean = false;
 
   @ViewChild('cardInfo')
   cardInfo!: ElementRef;
@@ -45,11 +34,8 @@ export class PaymentComponent implements AfterViewInit {
   cardHandler = this.onChange.bind(this);
   cardError: string = '';
 
-  firstFormGroup = this._formBuilder.group({
+  paymentForm = this._formBuilder.group({
     firstCtrl: ['', Validators.required],
-  });
-  secondFormGroup = this._formBuilder.group({
-    secondCtrl: ['', Validators.required],
   });
 
   constructor(
@@ -57,8 +43,9 @@ export class PaymentComponent implements AfterViewInit {
     private cd: ChangeDetectorRef,
     private http: HttpClient,
     private datePipe: DatePipe,
-    private scrollService: ScrollService
-  ) {}
+    private scrollService: ScrollService,
+    private paymentStatusService: PaymentStatusService
+  ) {this.paymentCompleted = this.paymentStatusService.isPaymentCompleted;}
 
   ngAfterViewInit() {
     this.initiateCardElement();
@@ -97,11 +84,13 @@ export class PaymentComponent implements AfterViewInit {
         .subscribe({
           next: (result) => {
             // Handle the successful response here
+            this.paymentStatusService.setPaymentCompleted(true);
             console.log('Payment successful:', result);
           },
           error: (err) => {
-            // Handle the error here
+            this.paymentError = true;
             console.error('Payment error:', err);
+
           },
         });
     } else {
@@ -115,28 +104,15 @@ export class PaymentComponent implements AfterViewInit {
     }
   }
 
-  onStepLabelClick(stepIndex: number) {
-    // Determine the current step index
-    const currentStepIndex = this.stepper.selectedIndex;
-
-    // Add your logic to decide whether to allow moving to the next step or not
-    const shouldPreventNextStep =
-      (currentStepIndex === 0 && stepIndex !== 1) || // Prevent moving from Step 1 to Step 2
-      (currentStepIndex === 1 && stepIndex === 0) || // Allow going back from Step 2 to Step 1
-      currentStepIndex === 2; // Prevent moving from Step 3
-
-    if (shouldPreventNextStep) {
-      // Prevent moving to the next step
-      return;
+  ngOnDestroy() {
+    if (this.card) {
+        // We remove event listener here to keep memory clean
+        this.card.removeEventListener('change', this.cardHandler);
+        this.card.destroy();
     }
+}
 
-    // If not prevented, move to the specified step
-    this.stepper.selectedIndex = stepIndex;
-  }
   scrollTo(sectionId: string) {
     this.scrollService.scrollToSection(sectionId);
   }
-}
-function newDate(arg0: string) {
-  throw new Error('Function not implemented.');
 }

@@ -66,6 +66,7 @@
 .dots {
 	padding-top: 20px;
 	padding-bottom: 10px;
+	color: #000;
 }
 
 .invoice main section {
@@ -186,3 +187,15 @@
 	color: #fa755a;
   }
 
+.success{
+	font-family: 'Playfair Display', serif;
+	font-size: 1.8em;
+	margin-top: 30px;
+	color: green;
+}
+.payment-error{
+	font-family: 'Playfair Display', serif;
+	font-size: 1.8em;
+	margin-top: 30px;
+	color: rgb(128, 0, 0);
+}

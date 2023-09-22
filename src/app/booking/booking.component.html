@@ -1,5 +1,6 @@
 <div class="booking">
 	<div class="container-center">
+		<div *ngIf="!paymentCompleted">
 		<h1>Reserva ahora</h1>
 		<p class="text-header">
 			Selecciona las fechas en las que quieres venir a la Casa de Armas para ver el presupuesto exacto.
@@ -91,7 +92,8 @@
 				</div>
 			</div>
 		</form>
-		<!-- <payment *ngIf="formOk" [bookingData]="bookingData"></payment> -->
-		<payment></payment>
+		</div>
+		<payment *ngIf="formOk" [bookingData]="bookingData"></payment>
+		<!-- <payment></payment> -->
 	</div>
 </div>
