@@ -170,7 +170,10 @@ router.post("/create-payment", async (req, res) => {
 
   try {
     // Create a string description from the info object
+    const formattedDateIn = parseDate(info.dateIn);
+    const formattedDateOut = parseDate(info.dateOut);
     const description = `Booking: ${info.name}, Email: ${info.email}, Phone: ${info.phone}, Guests: ${info.guests}, Price: €${info.price}, Check-in: ${info.dateIn}, Check-out: ${info.dateOut}`;
+
     // Create a charge using the Stripe token
     const charge = await stripe.charges.create({
       source: token.id,
@@ -186,7 +189,7 @@ router.post("/create-payment", async (req, res) => {
     `;
 
     // Values to be inserted into the query
-    const values = [info.name, info.email, info.phone, info.guests, info.dateIn, info.dateOut, info.price];
+    const values = [info.name, info.email, info.phone, info.guests, formattedDateIn, formattedDateOut, info.price];
 
     // Execute the query
     connection.query(insertQuery, values, (err, result) => {
@@ -204,10 +207,37 @@ router.post("/create-payment", async (req, res) => {
       });
     });
   } catch (error) {
-    console.error('Error en rutas', error);
     return res.status(500).json({ error: 'Payment error' });
   }
 });
+
+function parseDate(dateString) {
+  const dateParts = dateString.split('-'); // Split by "-"
+
+  // Check if the date string has the correct number of parts
+  if (dateParts.length !== 3) {
+    throw new Error('Invalid date format');
+  }
+
+  const day = parseInt(dateParts[0]);
+  const month = parseInt(dateParts[1]) - 1; // Month is 0-based (January is 0)
+  const year = parseInt(dateParts[2]);
+
+  // Check if the parsed values are valid
+  if (isNaN(day) || isNaN(month) || isNaN(year)) {
+    throw new Error('Invalid date format');
+  }
+
+  const parsedDate = new Date(year, month, day);
+
+  // Check if the parsed date is valid
+  if (isNaN(parsedDate.getTime())) {
+    throw new Error('Invalid date format');
+  }
+
+  const formattedDate = parsedDate.toISOString().slice(0, 10);
+  return formattedDate;
+}
 
 
 module.exports = router;

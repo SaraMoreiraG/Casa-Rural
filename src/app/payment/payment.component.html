@@ -46,7 +46,7 @@
 		</div>
 	</mat-step>
 	<mat-step label="Descarga el justificante">
-		<invoice-img *ngIf="paymentCompleted" [bookingDetails]="bookingData" [toPrint]="true"
+		<invoice-img *ngIf="paymentCompleted" [bookingDetails]="bookingData" [toPrint]="true" [bookingId]="bookingId"
 			class="col-6"></invoice-img>
 	</mat-step>
 </mat-stepper>

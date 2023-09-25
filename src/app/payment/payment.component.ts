@@ -13,6 +13,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Booking } from '../shared/booking';
 import { ScrollService } from '../scroll.service';
 import { PaymentStatusService } from '../payment-status.service';
+import { ApiResponse } from '../api-response';
 
 @Component({
   selector: 'payment',
@@ -21,26 +22,17 @@ import { PaymentStatusService } from '../payment-status.service';
 })
 export class PaymentComponent implements AfterViewInit, OnDestroy {
   // Input property to receive booking data
-  // @Input() bookingData!: Booking;
+  @Input() bookingData!: Booking;
 
-    // Current date
-    today = new Date();
-    formatToday = this.datePipe.transform(this.today, 'dd-MM-yyyy');
-  bookingData = {
-    name: 'Sara Prueba',
-    email: 'sjkd@jf.com',
-    phone: '123456789',
-    guests: 2,
-    dateIn: this.today,
-    dateOut: this.today,
-    price: 230
-  }
-
-
+  // Current date
+  today = new Date();
+  formatToday = this.datePipe.transform(this.today, 'dd-MM-yyyy');
 
   // Payment status flags
-  paymentCompleted: boolean = true;
+  paymentCompleted: boolean;
   paymentError: boolean = false;
+
+  bookingId: number;
 
   // Reference to the card element
   @ViewChild('cardInfo')
@@ -63,13 +55,17 @@ export class PaymentComponent implements AfterViewInit, OnDestroy {
     private paymentStatusService: PaymentStatusService
   ) {
     // Initialize paymentCompleted flag from the paymentStatusService
-    // this.paymentCompleted = this.paymentStatusService.isPaymentCompleted;
+    this.paymentCompleted = this.paymentStatusService.isPaymentCompleted;
+
+    // Subscribe to check paymentCompleted value
+    this.paymentStatusService.paymentCompleted$.subscribe((value) => {
+      this.paymentCompleted = value;
+    });
   }
 
   ngAfterViewInit() {
     // Initialize card element
-    if (!this.paymentCompleted)
-      this.initiateCardElement();
+    if (!this.paymentCompleted) this.initiateCardElement();
   }
 
   // Initialize the Stripe card element
@@ -100,14 +96,14 @@ export class PaymentComponent implements AfterViewInit, OnDestroy {
     if (token) {
       const info = this.bookingData;
       const paymentData = { token, info };
-      console.log(paymentData);
 
       this.http
         .post(`http://localhost:3000/bookings/create-payment`, paymentData)
         .subscribe({
-          next: (result) => {
+          next: (result: ApiResponse) => {
             // Handle the successful response here
             this.paymentStatusService.setPaymentCompleted(true);
+            this.bookingId = result.bookingId;
             console.log('Payment successful:', result);
           },
           error: (err) => {

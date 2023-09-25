@@ -14,6 +14,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 export class InvoiceImgComponent {
   @Input() bookingDetails!: Booking;
   @Input() toPrint!: boolean;
+  @Input() bookingId!: number;
   @ViewChild('pdfContent', { static: false }) pdfContent!: ElementRef;
 
   // Current date
@@ -46,7 +47,7 @@ export class InvoiceImgComponent {
           style: 'span',
         },
         {
-          text: 'reservationId',
+          text: `#00000${this.bookingId}`,
           style: 'span',
         },
         {
