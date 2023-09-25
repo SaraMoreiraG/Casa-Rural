@@ -200,10 +200,7 @@ export class BookingComponent implements OnDestroy {
       this.bookingData = this.bookingForm.value;
       if (this.bookingData.dateIn) {
         const dateIn = new Date(this.bookingData.dateIn);
-        this.bookingData.dateIn = this.datePipe.transform(
-          dateIn,
-          'dd-MM-yyyy'
-        );
+        this.bookingData.dateIn = this.datePipe.transform(dateIn, 'dd-MM-yyyy');
       }
       if (this.bookingData.dateOut) {
         const dateOut = new Date(this.bookingData.dateOut);

@@ -1,5 +1,4 @@
 <div class="invoice">
-	<!-- Invoice Details -->
 	<header>
 		<section>
 			<h1>Resumen del alquiler</h1>
@@ -47,11 +46,8 @@
 		</section>
 	</main>
 	<section class="footer">
-		<!-- Change Data Button -->
+		<!-- 2 Buttons options -->
 		<button *ngIf="!toPrint" class="btn-black" (click)="scrollTo('booking')">Cambiar datos</button>
 		<button *ngIf="toPrint" class="btn-black" (click)="generateAndDownloadPDF()">Imprimir justificante</button>
 	</section>
-</div>
-<div *ngIf="toPrint" #pdfContent>
-	<h1>Hooola</h1>
 </div>

@@ -104,6 +104,7 @@ export class PaymentComponent implements AfterViewInit, OnDestroy {
             // Handle the successful response here
             this.paymentStatusService.setPaymentCompleted(true);
             this.bookingId = result.bookingId;
+            this.scrollService.scrollToSection("booking");
             console.log('Payment successful:', result);
           },
           error: (err) => {

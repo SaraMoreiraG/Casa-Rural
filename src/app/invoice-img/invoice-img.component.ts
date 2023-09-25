@@ -35,7 +35,7 @@ export class InvoiceImgComponent {
   generateAndDownloadPDF() {
     const pdfDefinition: any = {
       info: {
-        title: 'Reserva Casa de Armas'
+        title: 'Reserva Casa de Armas',
       },
       content: [
         {
@@ -107,13 +107,9 @@ export class InvoiceImgComponent {
         },
       },
     };
-    const pdfOptions = {
-      filename: 'your_custom_name.pdf', // Change 'your_custom_name' to the desired name
-    };
 
-    const pdf = pdfMake.createPdf(pdfDefinition, pdfOptions);
+    const pdf = pdfMake.createPdf(pdfDefinition);
     pdf.open();
     pdfMake.createPdf(pdfDefinition).download('Reserva-CasaDeArmas.pdf');
-
   }
 }

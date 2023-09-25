@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const cors = require("cors");
-const stripe = require('stripe')('');
+const stripe = require("stripe")(process.env.STRIPE_API_TEST);
 const mysql = require("mysql2"); // Require the MySQL module
 
 router.use(cors());
@@ -59,26 +59,25 @@ router.post("/create-booking", async (req, res) => {
 
 // Get all booked dates
 router.get("/get-all-booked-dates", (req, res) => {
-	const query = `
+  const query = `
 	  SELECT date_in, date_out
 	  FROM bookings
 	`;
 
-	connection.query(query, (err, results) => {
-	  if (err) {
-		console.error("Error fetching booked dates:", err);
-		return res
-		  .status(500)
-		  .json({ error: "An error occurred while fetching booked dates" });
-	  }
-	  const bookedDates = results.map((row) => {
-		return { startDate: row.date_in, endDate: row.date_out };
-	  });
+  connection.query(query, (err, results) => {
+    if (err) {
+      console.error("Error fetching booked dates:", err);
+      return res
+        .status(500)
+        .json({ error: "An error occurred while fetching booked dates" });
+    }
+    const bookedDates = results.map((row) => {
+      return { startDate: row.date_in, endDate: row.date_out };
+    });
 
-	  res.json(bookedDates);
-	});
+    res.json(bookedDates);
+  });
 });
-
 
 // Get all bookings (HTTP GET)
 router.get("/get-bookings", (req, res) => {
@@ -164,7 +163,16 @@ router.put("/update-booking/:id", (req, res) => {
 router.post("/create-payment", async (req, res) => {
   const { info, token } = req.body;
 
-  if (!info.name || !info.email || !info.phone || !info.guests || !info.dateIn || !info.dateOut || !info.price || !token) {
+  if (
+    !info.name ||
+    !info.email ||
+    !info.phone ||
+    !info.guests ||
+    !info.dateIn ||
+    !info.dateOut ||
+    !info.price ||
+    !token
+  ) {
     return res.status(400).json({ error: "All fields are required" });
   }
 
@@ -178,7 +186,7 @@ router.post("/create-payment", async (req, res) => {
     const charge = await stripe.charges.create({
       source: token.id,
       amount: info.price * 100, // Adjust the amount as needed
-      currency: 'eur', // Adjust the currency as needed
+      currency: "eur", // Adjust the currency as needed
       description: description,
     });
 
@@ -189,7 +197,15 @@ router.post("/create-payment", async (req, res) => {
     `;
 
     // Values to be inserted into the query
-    const values = [info.name, info.email, info.phone, info.guests, formattedDateIn, formattedDateOut, info.price];
+    const values = [
+      info.name,
+      info.email,
+      info.phone,
+      info.guests,
+      formattedDateIn,
+      formattedDateOut,
+      info.price,
+    ];
 
     // Execute the query
     connection.query(insertQuery, values, (err, result) => {
@@ -207,16 +223,16 @@ router.post("/create-payment", async (req, res) => {
       });
     });
   } catch (error) {
-    return res.status(500).json({ error: 'Payment error' });
+    return res.status(500).json({ error: "Payment error" });
   }
 });
 
 function parseDate(dateString) {
-  const dateParts = dateString.split('-'); // Split by "-"
+  const dateParts = dateString.split("-"); // Split by "-"
 
   // Check if the date string has the correct number of parts
   if (dateParts.length !== 3) {
-    throw new Error('Invalid date format');
+    throw new Error("Invalid date format");
   }
 
   const day = parseInt(dateParts[0]);
@@ -225,19 +241,18 @@ function parseDate(dateString) {
 
   // Check if the parsed values are valid
   if (isNaN(day) || isNaN(month) || isNaN(year)) {
-    throw new Error('Invalid date format');
+    throw new Error("Invalid date format");
   }
 
   const parsedDate = new Date(year, month, day);
 
   // Check if the parsed date is valid
   if (isNaN(parsedDate.getTime())) {
-    throw new Error('Invalid date format');
+    throw new Error("Invalid date format");
   }
 
   const formattedDate = parsedDate.toISOString().slice(0, 10);
   return formattedDate;
 }
-
 
 module.exports = router;
