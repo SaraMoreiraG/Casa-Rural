@@ -10,10 +10,10 @@ import {
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Booking } from '../shared/booking';
-import { ScrollService } from '../scroll.service';
+import { Booking } from '../../shared/booking';
+import { ScrollService } from '../../scroll.service';
 import { PaymentStatusService } from '../payment-status.service';
-import { ApiResponse } from '../api-response';
+import { ApiResponse } from './api-response';
 
 @Component({
   selector: 'payment',

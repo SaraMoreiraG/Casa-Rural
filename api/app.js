@@ -9,7 +9,7 @@ app.use(cors());
 app.use(express.json());
 
 // Use the emailRoutes router for the /send-email endpoint
-app.use('/send-email', emailRoutes);
+app.use('/email', emailRoutes);
 // Use the bookingRoutes router for booking-related endpoints
 app.use('/bookings', bookingRoutes);
 

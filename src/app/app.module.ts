@@ -31,9 +31,8 @@ import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PhotoCardComponent } from './photo-card/photo-card.component';
 import { BookingComponent } from './booking/booking.component';
-import { PaymentComponent } from './payment/payment.component';
-import { BillDetailsComponent } from './bill-details/bill-details.component';
-import { InvoiceImgComponent } from './invoice-img/invoice-img.component';
+import { PaymentComponent } from './booking/payment/payment.component';
+import { InvoiceImgComponent } from './booking/payment/invoice-img/invoice-img.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +50,6 @@ import { InvoiceImgComponent } from './invoice-img/invoice-img.component';
     PhotoCardComponent,
     BookingComponent,
     PaymentComponent,
-    BillDetailsComponent,
     InvoiceImgComponent
   ],
   imports: [

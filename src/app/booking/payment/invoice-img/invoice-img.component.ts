@@ -1,6 +1,6 @@
 import { Component, Input, ElementRef, ViewChild } from '@angular/core';
-import { Booking } from '../shared/booking';
-import { ScrollService } from '../scroll.service';
+import { Booking } from '../../../shared/booking';
+import { ScrollService } from '../../../scroll.service';
 import { DatePipe } from '@angular/common';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';

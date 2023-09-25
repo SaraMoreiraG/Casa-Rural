@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import { DatePipe } from '@angular/common';
-import { PaymentStatusService } from '../payment-status.service';
+import { PaymentStatusService } from './payment-status.service';
 
 @Component({
   selector: 'booking',
