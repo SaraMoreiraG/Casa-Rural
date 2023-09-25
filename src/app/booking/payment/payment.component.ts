@@ -24,10 +24,6 @@ export class PaymentComponent implements AfterViewInit, OnDestroy {
   // Input property to receive booking data
   @Input() bookingData!: Booking;
 
-  // Current date
-  today = new Date();
-  formatToday = this.datePipe.transform(this.today, 'dd-MM-yyyy');
-
   // Payment status flags
   paymentCompleted: boolean;
   paymentError: boolean = false;

@@ -39,7 +39,7 @@ export class InvoiceImgComponent {
       },
       content: [
         {
-          text: 'Resumen del alquiler',
+          text: 'Resumen del alquiler Casa de Armas',
           style: 'header',
         },
         {

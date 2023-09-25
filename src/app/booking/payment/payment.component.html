@@ -3,8 +3,8 @@
 		<ng-template matStepLabel>Realiza el pago</ng-template>
 		<div class="row m-0">
 			<invoice-img *ngIf="!paymentCompleted" [bookingDetails]="bookingData" [toPrint]="false"
-				class="col-6"></invoice-img>
-			<div *ngIf="!paymentCompleted" class="invoice col-5 ms-2">
+				class="col-md-6 col-sm-12"></invoice-img>
+			<div *ngIf="!paymentCompleted" class="invoice col-md-5 col-sm-12 ms-2">
 				<header>
 					<section>
 						<h1>Datos de la tarjeta</h1>

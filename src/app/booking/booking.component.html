@@ -7,7 +7,7 @@
 			</p>
 			<form (ngSubmit)="onSubmit()" [formGroup]="bookingForm">
 				<div class="row justify-content-evenly">
-					<div class="left col-5">
+					<div class="left col-md-5 col-sm-12">
 						<!-- Input fields for name, email, phone, and guests -->
 						<mat-form-field class="mb-2">
 							<mat-label>Nombre</mat-label>
@@ -35,7 +35,7 @@
 							</mat-error>
 						</mat-form-field>
 					</div>
-					<div class="right col-6 align-items-between">
+					<div class="right col-md-6 col-sm-12 align-items-between mb-3">
 						<div class="row m-0">
 							<!-- Date inputs for arrival and departure -->
 							<mat-form-field class="col-6">
