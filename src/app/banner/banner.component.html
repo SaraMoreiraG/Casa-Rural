@@ -6,6 +6,7 @@
 			<li><i class="fa-solid fa-check" aria-label="Checkmark"></i> Disfruta de la tranquilidad del entorno</li>
 			<li><i class="fa-solid fa-check" aria-label="Checkmark"></i> Experimenta aventuras al aire libre</li>
 		</ul>
-		<button class="btn-medium"  aria-label="Reserva ahora" (click)="scrollTo('booking')">Reserva ahora</button>
+		<button *ngIf="localBooking" class="btn-medium" aria-label="Reserva ahora" (click)="scrollTo('booking')">Reserva ahora</button>
+		<button *ngIf="!localBooking" class="btn-medium" aria-label="Reserva ahora" (click)="openLinkInNewTab()">Reserva ahora</button>
 	</div>
 </div>

@@ -11,7 +11,8 @@
           <li><i class="fa-solid fa-check" aria-label="Checkmark"></i> Zona para trabajar</li>
           <li><i class="fa-solid fa-check" aria-label="Checkmark"></i> Aparcamiento gratuito</li>
         </ul>
-        <button class="btn-medium mb-5" aria-label="Reserva ahora" (click)="scrollTo('booking')">Reserva ahora</button>
+				<button *ngIf="localBooking" class="btn-medium mb-5" aria-label="Reserva ahora" (click)="scrollTo('booking')">Reserva ahora</button>
+				<button *ngIf="!localBooking" class="btn-medium mb-5" aria-label="Reserva ahora" (click)="openLinkInNewTab()">Reserva ahora</button>
       </section>
       <section class="right col-md-5 col-sm-10">
         <h3>Explora la zona:</h3>

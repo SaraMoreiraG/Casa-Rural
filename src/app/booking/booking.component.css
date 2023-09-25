@@ -2,11 +2,13 @@
 	background-color: #a79770;
 	color: #fff;
 }
+
 .left {
 	display: flex;
 	flex-direction: column;
 	margin-bottom: 20px;
 }
+
 input {
 	height: 50px;
 	border: none;
