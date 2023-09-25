@@ -1,117 +1,52 @@
 <mat-stepper [linear]="true" #stepper>
 	<mat-step [completed]="paymentCompleted">
-	  <ng-template matStepLabel>Realiza el pago</ng-template>
-	  <div class="row m-0">
-		<div *ngIf="!paymentCompleted" class="invoice col-6">
-		  <!-- Invoice Details -->
-		  <header>
-			<section>
-			  <h1>Resumen del alquiler</h1>
-			  <span>{{ formatToday }}</span>
-			</section>
-			<section>
-			  <span>89 289</span>
-			</section>
-		  </header>
-		  <main>
-			<section class="invoice-details">
-			  <!-- Booking Details -->
-			  <figure>
-				<span><strong>Nombre:</strong></span>
-				<span>{{ bookingData.name }}</span>
-			  </figure>
-			  <figure>
-				<span><strong>Email:</strong></span>
-				<span>{{ bookingData.email }}</span>
-			  </figure>
-			  <figure>
-				<span><strong>Teléfono:</strong></span>
-				<span>{{ bookingData.phone }}</span>
-			  </figure>
-			  <figure>
-				<span><strong>Número de huéspedes:</strong></span>
-				<span>{{ bookingData.guests }}</span>
-			  </figure>
-			  <figure>
-				<span><strong>Fecha de entrada:</strong></span>
-				<span>{{ bookingData.dateIn }}</span>
-			  </figure>
-			  <figure>
-				<span><strong>Fecha de salida:</strong></span>
-				<span>{{ bookingData.dateOut }}</span>
-			  </figure>
-			</section>
-
-			<section class="invoice-price">
-			  <!-- Total Price -->
-			  <figure>
-				<span>Total</span>
-				<span>{{ bookingData.price }}€</span>
-			  </figure>
-			</section>
-		  </main>
-
-		  <section class="footer">
-			<!-- Change Data Button -->
-			<button class="btn-black" (click)="scrollTo('booking')">Cambiar datos</button>
-		  </section>
+		<ng-template matStepLabel>Realiza el pago</ng-template>
+		<div class="row m-0">
+			<invoice-img *ngIf="!paymentCompleted" [bookingDetails]="bookingData" [toPrint]="false"
+				class="col-6"></invoice-img>
+			<div *ngIf="!paymentCompleted" class="invoice col-5 ms-2">
+				<header>
+					<section>
+						<h1>Datos de la tarjeta</h1>
+					</section>
+				</header>
+				<section class="payment">
+					<form [formGroup]="paymentForm" (ngSubmit)="createStripeToken()" class="checkout">
+						<div class="dots">
+							<!-- Payment Form -->
+							<label class="mb-4">Introduce tus datos:</label>
+							<div id="form-field mt-5">
+								<div id="card-info" #cardInfo></div>
+								<mat-error id="card-errors" role="alert" *ngIf="cardError">
+									<mat-icon style="color: #f44336">cancel</mat-icon>
+									&nbsp;{{ cardError }}
+								</mat-error>
+							</div>
+						</div>
+						<button id="submit-button" type="submit" class="btn-big mt-5">Pagar
+							ahora</button>
+						<p *ngIf="paymentError" class="payment-error">Ha ocurrido un error, ponte en contacto con
+							nosotro en el número: 690784695</p>
+					</form>
+				</section>
+			</div>
+			<div *ngIf="paymentCompleted" class="invoice">
+				<header>
+					<section>
+						<h1>Enhorabuena</h1>
+					</section>
+				</header>
+				<section class="payment">
+					<p *ngIf="paymentCompleted" class="success">¡La reserva se ha realizado con éxito! <br>
+						🎉🎉🎉🎉🎉</p>
+					<button matStepperNext *ngIf="paymentCompleted" class="btn-black">Descargar
+						justificante</button>
+				</section>
+			</div>
 		</div>
-		<div class="invoice col-5 ms-2">
-		  <header *ngIf="!paymentCompleted">
-			<!-- Payment Header -->
-			<section>
-			  <h1>{{ paymentCompleted ? "Enhorabuena" : "Datos de la tarjeta" }}</h1>
-			</section>
-		  </header>
-		  <section class="payment">
-			<form [formGroup]="paymentForm" (ngSubmit)="createStripeToken()" class="checkout">
-			  <div *ngIf="!paymentCompleted" class="dots">
-				<!-- Payment Form -->
-				<label class="mb-4">Introduce tus datos:</label>
-				<div id="form-field mt-5">
-				  <div id="card-info" #cardInfo></div>
-				  <mat-error id="card-errors" role="alert" *ngIf="cardError">
-					<mat-icon style="color: #f44336">cancel</mat-icon>
-					&nbsp;{{ cardError }}
-				  </mat-error>
-				</div>
-			  </div>
-			  <button *ngIf="!paymentCompleted" id="submit-button" type="submit" class="btn-big mt-5">Pagar ahora</button>
-			  <p *ngIf="paymentCompleted" class="success">¡La reserva se ha realizado con éxito! <br> 🎉🎉🎉🎉🎉</p>
-			  <button matStepperNext *ngIf="paymentCompleted" class="btn-black">Descargar justificante</button>
-			  <p *ngIf="paymentError" class="payment-error">Ha ocurrido un error, ponte en contacto con nosotro en el número: 690784695</p>
-			</form>
-		  </section>
-		</div>
-	  </div>
 	</mat-step>
 	<mat-step label="Descarga el justificante">
-	  <section class="invoice-details">
-		<!-- Booking Details -->
-		<figure>
-		  <span><strong>Nombre:</strong></span>
-		  <span>{{ bookingData.name }}</span>
-		</figure>
-		<figure>
-		  <span><strong>Email:</strong></span>
-		  <span>{{ bookingData.email }}</span>
-		</figure>
-		<figure>
-		  <span><strong>Teléfono:</strong></span>
-		  <span>{{ bookingData.phone }}</span>
-		</figure>
-		<figure>
-		  <span><strong>Número de huéspedes:</strong></span>
-		  <span>{{ bookingData.guests }}</span>
-		</figure>
-		<figure>
-		  <span><strong>Fecha de entrada:</strong></span>
-		  <span>{{ bookingData.dateIn }}</span>
-		</figure>
-		<figure>
-		  <span><strong>Fecha de salida:</strong></span>
-		  <span>{{ bookingData.dateOut }}</span>
-		</figure>
-	  </section>
+		<invoice-img *ngIf="paymentCompleted" [bookingDetails]="bookingData" [toPrint]="true"
+			class="col-6"></invoice-img>
 	</mat-step>
-  </mat-stepper>
+</mat-stepper>

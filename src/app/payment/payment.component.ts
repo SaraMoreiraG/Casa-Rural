@@ -6,12 +6,10 @@ import {
   ElementRef,
   OnDestroy,
   ViewChild,
-  OnInit,
 } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatStepper } from '@angular/material/stepper';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Booking } from '../shared/booking';
 import { ScrollService } from '../scroll.service';
 import { PaymentStatusService } from '../payment-status.service';
@@ -21,19 +19,37 @@ import { PaymentStatusService } from '../payment-status.service';
   templateUrl: './payment.component.html',
   styleUrls: ['./payment.component.css'],
 })
-export class PaymentComponent implements AfterViewInit {
-  @Input() bookingData!: Booking;
-  today = new Date();
-  formatToday = this.datePipe.transform(this.today, 'dd-MM-yyyy');
-  paymentCompleted: boolean;
+export class PaymentComponent implements AfterViewInit, OnDestroy {
+  // Input property to receive booking data
+  // @Input() bookingData!: Booking;
+
+    // Current date
+    today = new Date();
+    formatToday = this.datePipe.transform(this.today, 'dd-MM-yyyy');
+  bookingData = {
+    name: 'Sara Prueba',
+    email: 'sjkd@jf.com',
+    phone: '123456789',
+    guests: 2,
+    dateIn: this.today,
+    dateOut: this.today,
+    price: 230
+  }
+
+
+
+  // Payment status flags
+  paymentCompleted: boolean = true;
   paymentError: boolean = false;
 
+  // Reference to the card element
   @ViewChild('cardInfo')
   cardInfo!: ElementRef;
   card: any;
   cardHandler = this.onChange.bind(this);
   cardError: string = '';
 
+  // Payment form with validation
   paymentForm = this._formBuilder.group({
     firstCtrl: ['', Validators.required],
   });
@@ -45,13 +61,18 @@ export class PaymentComponent implements AfterViewInit {
     private datePipe: DatePipe,
     private scrollService: ScrollService,
     private paymentStatusService: PaymentStatusService
-  ) {this.paymentCompleted = this.paymentStatusService.isPaymentCompleted;}
-
-  ngAfterViewInit() {
-    this.initiateCardElement();
+  ) {
+    // Initialize paymentCompleted flag from the paymentStatusService
+    // this.paymentCompleted = this.paymentStatusService.isPaymentCompleted;
   }
 
-  // Your component code
+  ngAfterViewInit() {
+    // Initialize card element
+    if (!this.paymentCompleted)
+      this.initiateCardElement();
+  }
+
+  // Initialize the Stripe card element
   initiateCardElement() {
     this.card = elements.create('card', {
       classes: {
@@ -63,6 +84,7 @@ export class PaymentComponent implements AfterViewInit {
     this.card.addEventListener('change', this.cardHandler);
   }
 
+  // Handle card element changes
   onChange({ error }: { error: any }) {
     if (error) {
       this.cardError = error.message;
@@ -72,6 +94,7 @@ export class PaymentComponent implements AfterViewInit {
     this.cd.detectChanges();
   }
 
+  // Create a Stripe token and perform payment
   async createStripeToken() {
     const { token, error } = await stripe.createToken(this.card);
     if (token) {
@@ -90,7 +113,6 @@ export class PaymentComponent implements AfterViewInit {
           error: (err) => {
             this.paymentError = true;
             console.error('Payment error:', err);
-
           },
         });
     } else {
@@ -98,20 +120,22 @@ export class PaymentComponent implements AfterViewInit {
     }
   }
 
+  // Handle card element errors
   onError(error: any) {
     if (error.message) {
       this.cardError = error.message;
     }
   }
 
+  // Clean up card element on component destruction
   ngOnDestroy() {
     if (this.card) {
-        // We remove event listener here to keep memory clean
-        this.card.removeEventListener('change', this.cardHandler);
-        this.card.destroy();
+      this.card.removeEventListener('change', this.cardHandler);
+      this.card.destroy();
     }
-}
+  }
 
+  // Scroll to a specified section
   scrollTo(sectionId: string) {
     this.scrollService.scrollToSection(sectionId);
   }

@@ -1,0 +1,201 @@
+.wrapper{
+	background-color: #757575;
+	border-radius: 10px;
+}
+.invoice {
+	background-color: #ffffff;
+	border-radius: 10px;
+	box-shadow: 0 14px 28px rgba(0, 0, 0, 0.1), 0 10px 10px rgba(0, 0, 0, 0.13);
+	margin: 50px 0px;
+	padding: 50px 30px 30px;
+}
+
+/* INVOICE HEADER */
+.invoice header {
+	overflow: hidden;
+	margin-bottom: 40px;
+}
+
+.invoice header section:nth-of-type(1) {
+	float: left;
+}
+
+.invoice header section:nth-of-type(1) h1 {
+	text-transform: uppercase;
+	font-weight: 700;
+	letter-spacing: 2px;
+	color: #344760;
+	font-size: 1.8em;
+	margin-top: 0;
+	margin-bottom: 5px;
+}
+
+.invoice header section:nth-of-type(1) span {
+	color: #b7bcc3;
+	font-size: 1.2em;
+	letter-spacing: 2px;
+}
+
+.invoice header section:nth-of-type(2) {
+	float: right;
+}
+
+.invoice header section:nth-of-type(2) span {
+	font-size: 21px;
+	color: #b7bcc3;
+	letter-spacing: 1px;
+}
+
+.invoice header section:nth-of-type(2) span:before {
+	content: "#";
+}
+
+/* INVOICE MAIN */
+.invoice main, .dots {
+	border: 1px dashed #b7bcc3;
+	border-left-width: 0px;
+	border-right-width: 0px;
+}
+
+.invoice main{
+	padding-top: 30px;
+	padding-bottom: 30px;
+}
+
+/* DSDD */
+.dots {
+	padding-top: 20px;
+	padding-bottom: 10px;
+	color: #000;
+}
+
+.invoice main section {
+	overflow: hidden;
+}
+
+.invoice main section span {
+	float: left;
+	color: #344760;
+	font-size: 1.2em;
+	letter-spacing: 0.5px;
+	font-family: 'Lato', sans-serif;
+}
+
+.invoice main section span:nth-of-type(1) {
+	width: 45%;
+	margin-right: 5%;
+}
+
+.invoice main section span:nth-of-type(2) {
+	width: 22.5%;
+	margin-right: 5%;
+}
+
+.invoice main section span:nth-of-type(2),
+.invoice main section span:nth-of-type(3) {
+	text-align: right;
+}
+
+.invoice main section span:nth-of-type(3) {
+	width: 22.5%;
+}
+
+
+.invoice-details {
+	margin-bottom: 30px;
+}
+
+.invoice-details figure {
+	overflow: hidden;
+	margin: 0;
+	margin-bottom: 20px;
+	line-height: 160%;
+	display: flex;
+	justify-content: space-evenly;
+}
+
+.invoice-details figure:last-of-type {
+	margin-bottom: 0px;
+}
+
+.invoice-price figure{
+	overflow: hidden;
+	margin: 0;
+	margin-bottom: 20px;
+	line-height: 160%;
+	display: flex;
+	justify-content: center;
+	font-size: 1.2em;
+}
+
+.invoice .footer {
+	text-align: right;
+	margin-top: 30px;
+}
+
+/* .invoice .footer button{
+	font-size: 19px;
+	font-weight: bold;
+	text-decoration: none;
+	text-transform: uppercase;
+	position: relative;
+	letter-spacing: 1px;
+	border: none;
+	background-color: transparent;
+	margin-top: 20px;
+}
+
+.invoice .footer button:after{
+	content: "";
+	width: 0%;
+	height: 4px;
+	position: absolute;
+	right: 0;
+	bottom: -10px;
+	background-color: inherit;
+	-webkit-transition: width 0.2s ease-in-out;
+	-moz-transition: width 0.2s ease-in-out;
+	transition: width 0.2s ease-in-out;
+}
+
+.invoice .footer button:hover:after{
+	width: 100%;
+}
+
+.invoice .footer button:nth-of-type(1) {
+	color: #b7bcc3;
+	margin-right: 30px;
+}
+
+.invoice .footer button:nth-of-type(1):after {
+	background-color: #b7bcc3;
+} */
+
+/* component.scss */
+
+.card-element {
+	color: #32325d;
+	font-family: "Lato", sans-serif;
+	padding-bottom: 30px;
+  }
+
+  .card-element::placeholder {
+	color: #aab7c4;
+  }
+
+  .card-element.invalid {
+	color: #fa755a;
+  }
+
+.success{
+	font-family: 'Playfair Display', serif;
+	font-size: 1.8em;
+	margin-top: 30px;
+	color: green;
+}
+.payment-error{
+	font-family: 'Playfair Display', serif;
+	font-size: 1.8em;
+	margin-top: 30px;
+	color: rgb(128, 0, 0);
+}

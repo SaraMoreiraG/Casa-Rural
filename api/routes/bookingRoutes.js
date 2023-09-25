@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const cors = require("cors");
-const stripe = require('stripe')('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');
+const stripe = require('stripe')('');
 const mysql = require("mysql2"); // Require the MySQL module
 
 router.use(cors());
