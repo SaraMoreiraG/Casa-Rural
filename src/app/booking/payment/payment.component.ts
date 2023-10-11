@@ -94,7 +94,7 @@ export class PaymentComponent implements AfterViewInit, OnDestroy {
       const paymentData = { token, info };
 
       this.http
-        .post(`http://localhost:3000/bookings/create-payment`, paymentData)
+        .post(`https://xjprsr7xyi.us-east-1.awsapprunner.com/dynamodb/create-payment`, paymentData)
         .subscribe({
           next: (result: ApiResponse) => {
             // Handle the successful response here

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ScrollService } from '../scroll.service';
 
 @Component({
   selector: 'photo-card',
@@ -12,9 +13,12 @@ export class PhotoCardComponent {
   @Input() cardPhoto: string = '';
   @Input() isSpecial: boolean = false;
   @Input() specialLink: string = '';
+  @Input() webBooking: boolean = false;
 
   isFirstCard: boolean = true;
   isLastCard: boolean = false;
+
+  constructor(private scrollService: ScrollService) {}
 
   ngOnInit() {
     this.cardPhoto = this.images[0];
@@ -38,5 +42,9 @@ export class PhotoCardComponent {
       this.isFirstCard = false;
       this.isLastCard = nextIndex === this.images.length - 1;
     }
+  }
+
+  scrollTo(sectionId: string) {
+    this.scrollService.scrollToSection(sectionId);
   }
 }
