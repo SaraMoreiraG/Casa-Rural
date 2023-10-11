@@ -1,5 +1,5 @@
 <article class="card" [style.background-image]="'url(' + cardPhoto + ')'">
-	<ng-container *ngIf="isSpecial; then airbnb else (webBooking ? webBooking : regularCard)"></ng-container>
+	<ng-container *ngIf="isSpecial; then airbnb else (webBooking ? localBooking : regularCard)"></ng-container>
 		<!-- Special Card Content -->
 		<ng-template #airbnb>
 			<a [href]="specialLink" target="_blank">
@@ -9,7 +9,7 @@
 				</div>
 			</a>
 		</ng-template>
-		<ng-template #webBooking>
+		<ng-template #localBooking>
 			<a (click)="scrollTo('booking')">
 				<div class="card-content booking">
 					<h4>{{ title }}</h4>

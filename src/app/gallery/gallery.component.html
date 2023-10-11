@@ -44,18 +44,14 @@
                 ]">
       </photo-card>
       <!----------- CARD 6 ------------>
-      <photo-card *ngIf="!localBooking"
-      [title]="'RESERVA TU ESTANCIA'"
-      [content]="'¡Haz tu reserva ahora y experimenta la magia de Puebla de Sanabria!'"
-      [images]="['../../assets/images/airbnb.jpg']"
-      [isSpecial]="true"
-      [specialLink]="'https://www.airbnb.es/rooms/945766271880521378?guests=1&adults=1&s=67&unique_share_id=5c02826d-96e3-4941-9fd2-463ae68d8f51'">
+      <photo-card *ngIf="!localBooking" [title]="'RESERVA TU ESTANCIA'"
+        [content]="'¡Haz tu reserva ahora y experimenta la magia de Puebla de Sanabria!'"
+        [images]="['../../assets/images/airbnb.jpg']" [isSpecial]="true"
+        [specialLink]="'https://www.airbnb.es/rooms/945766271880521378?guests=1&adults=1&s=67&unique_share_id=5c02826d-96e3-4941-9fd2-463ae68d8f51'">
       </photo-card>
-      <photo-card *ngIf="localBooking"
-      [title]="'RESERVA TU ESTANCIA'"
-      [content]="'¡Haz tu reserva ahora y experimenta la magia de Puebla de Sanabria!'"
-      [images]="['../../assets/images/booknow.jpeg']"
-      [webBooking]="true">
+      <photo-card *ngIf="localBooking" [title]="'RESERVA TU ESTANCIA'"
+        [content]="'¡Haz tu reserva ahora y experimenta la magia de Puebla de Sanabria!'"
+        [images]="['../../assets/images/booknow.jpeg']" [webBooking]="true">
       </photo-card>
     </section>
   </div>
