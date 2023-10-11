@@ -25,10 +25,6 @@
 	background-position: center center;
 }
 
-.btn-fake{
-	background-color: transparent;
-	border: none;
-}
 @media screen and (max-width: 1112px) {
 	.rounded-image {
 		width: 200px;
