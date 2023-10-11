@@ -1,26 +1,35 @@
 <article class="card" [style.background-image]="'url(' + cardPhoto + ')'">
-	<ng-container *ngIf="isSpecial; else regularCard">
+	<ng-container *ngIf="isSpecial; then airbnb else (webBooking ? localBooking : regularCard)"></ng-container>
 		<!-- Special Card Content -->
-		<a [href]="specialLink" target="_blank">
-			<div class="card-content booking">
+		<ng-template #airbnb>
+			<a [href]="specialLink" target="_blank">
+				<div class="card-content booking">
+					<h4>{{ title }}</h4>
+					<p>{{ content }}</p>
+				</div>
+			</a>
+		</ng-template>
+		<ng-template #localBooking>
+			<a (click)="scrollTo('booking')">
+				<div class="card-content booking">
+					<h4>{{ title }}</h4>
+					<p>{{ content }}</p>
+				</div>
+			</a>
+		</ng-template>
+		<ng-template #regularCard>
+			<!-- Regular Card Content -->
+			<div class="card-content">
 				<h4>{{ title }}</h4>
 				<p>{{ content }}</p>
 			</div>
-		</a>
-	</ng-container>
-	<ng-template #regularCard>
-		<!-- Regular Card Content -->
-		<div class="card-content">
-			<h4>{{ title }}</h4>
-			<p>{{ content }}</p>
-		</div>
-		<!-- Previus Photo Arrow -->
-		<div class="prev-arrow" *ngIf="!isFirstCard" (click)="prevImage()">
-			<span>&larr;</span>
-		</div>
-		<!-- Next Photo Arrow -->
-		<div class="next-arrow" *ngIf="!isLastCard" (click)="nextImage()">
-			<span>&rarr;</span>
-		</div>
-	</ng-template>
+			<!-- Previus Photo Arrow -->
+			<div class="prev-arrow" *ngIf="!isFirstCard" (click)="prevImage()">
+				<span>&larr;</span>
+			</div>
+			<!-- Next Photo Arrow -->
+			<div class="next-arrow" *ngIf="!isLastCard" (click)="nextImage()">
+				<span>&rarr;</span>
+			</div>
+		</ng-template>
 </article>

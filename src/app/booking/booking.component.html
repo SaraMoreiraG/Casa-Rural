@@ -53,7 +53,7 @@
 								<mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
 								<mat-datepicker #endDatePicker></mat-datepicker>
 							</mat-form-field>
-							<mat-error *ngIf="errorFetchingBookings">
+							<mat-error *ngIf="errorFetchingBookings" class="mb-3">
 								Imposible comprobar disponibilidad, llamanos al 690 78 46 95.
 							</mat-error>
 						</div>
@@ -88,7 +88,7 @@
 								<p>{{ totalPrice }} €</p>
 							</div>
 						</div>
-						<button *ngIf="!formOk" class="btn-white w-100" type="submit">Reservar</button>
+						<button *ngIf="!formOk && !errorFetchingBookings" class="btn-white w-100" type="submit">Reservar</button>
 						<button *ngIf="formOk" class="btn-white w-100" (click)="modifyData()">Modificar reserva</button>
 					</div>
 				</div>

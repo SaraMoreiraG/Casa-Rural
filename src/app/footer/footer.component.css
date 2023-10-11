@@ -14,3 +14,9 @@
 	text-decoration: none;
 	color: #fff;
 }
+
+.nav-button{
+	cursor: pointer;
+	color: #fff;
+	font-size: 1em;
+}

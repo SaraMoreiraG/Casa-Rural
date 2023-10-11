@@ -5,11 +5,13 @@ import { AppBookingComponent } from './views/app-booking.component';
 
 const routes: Routes = [
   { path: '', component: AppAirbnbComponent },
-  { path: 'booking', component: AppBookingComponent }
+  { path: 'booking', component: AppBookingComponent },
+  // Ruta de redirección para capturar todas las rutas desconocidas
+  { path: '**', redirectTo: '/index.html' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

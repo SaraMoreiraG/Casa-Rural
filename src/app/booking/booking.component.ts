@@ -53,7 +53,7 @@ export class BookingComponent implements OnDestroy {
 
   // Fetch booked dates from the server
   fetchBookedDates() {
-    const backendUrl = 'http://localhost:3000/bookings/get-all-booked-dates';
+    const backendUrl = 'https://xjprsr7xyi.us-east-1.awsapprunner.com/dynamodb/get-all-booked-dates';
 
     // Unsubscribe from any previous subscriptions to avoid memory leaks
     if (this.bookedDatesSubscription) {
@@ -63,6 +63,7 @@ export class BookingComponent implements OnDestroy {
     this.bookedDatesSubscription = this.http.get<any[]>(backendUrl).subscribe(
       (response: any[]) => {
         this.bookedDates = response;
+        console.log(this.bookedDates)
       },
       (error) => {
         this.errorFetchingBookings = true;
@@ -209,6 +210,7 @@ export class BookingComponent implements OnDestroy {
           'dd-MM-yyyy'
         );
       }
+      console.log(this.bookingData)
       // Set form to Ok
       this.formOk = true;
     } else {
