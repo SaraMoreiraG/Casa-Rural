@@ -1,0 +1,100 @@
+<div class="booking">
+	<div class="container-center">
+		<div *ngIf="!paymentCompleted">
+			<h1>Reserva ahora</h1>
+			<p class="text-header">
+				Selecciona las fechas en las que quieres venir a la Casa de Armas para ver el presupuesto exacto.
+			</p>
+			<form (ngSubmit)="onSubmit()" [formGroup]="bookingForm">
+				<div class="row justify-content-evenly">
+					<div class="left col-md-5 col-sm-12">
+						<!-- Input fields for name, email, phone, and guests -->
+						<mat-form-field class="mb-2">
+							<mat-label>Nombre</mat-label>
+							<input matInput type="text" placeholder="Nombre" formControlName="name">
+						</mat-form-field>
+						<mat-form-field class="mb-2">
+							<mat-label>Email</mat-label>
+							<input matInput type="email" placeholder="Email" formControlName="email">
+							<mat-error *ngIf="bookingForm.get('email')?.hasError('email')">
+								Introduce una dirección de email válida.
+							</mat-error>
+						</mat-form-field>
+						<mat-form-field class="mb-2">
+							<mat-label>Teléfono</mat-label>
+							<input matInput placeholder="Teléfono" formControlName="phone">
+							<mat-error *ngIf="bookingForm.get('phone')?.hasError('pattern')">
+								Debes introducir exactamente 9 números.
+							</mat-error>
+						</mat-form-field>
+						<mat-form-field>
+							<mat-label>Número de huéspedes</mat-label>
+							<input matInput type="number" placeholder="Huéspedes" formControlName="guests">
+							<mat-error *ngIf="bookingForm.get('guests')?.hasError('max')">
+								Máximo 4 huéspedes permitidos.
+							</mat-error>
+						</mat-form-field>
+					</div>
+					<div class="right col-md-6 col-sm-12 align-items-between mb-3">
+						<div class="row m-0">
+							<!-- Date inputs for arrival and departure -->
+							<mat-form-field class="col-6">
+								<mat-label>Llegada</mat-label>
+								<input matInput [matDatepickerFilter]="startDateFilter"
+									[matDatepicker]="startDatePicker" formControlName="dateIn"
+									(dateChange)="calculatePrice()">
+								<mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+								<mat-datepicker #startDatePicker></mat-datepicker>
+							</mat-form-field>
+							<mat-form-field class="col-6">
+								<mat-label>Salida</mat-label>
+								<input matInput [matDatepickerFilter]="endDateFilter" [matDatepicker]="endDatePicker"
+									formControlName="dateOut" (dateChange)="calculatePrice()">
+								<mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+								<mat-datepicker #endDatePicker></mat-datepicker>
+							</mat-form-field>
+							<mat-error *ngIf="errorFetchingBookings">
+								Imposible comprobar disponibilidad, llamanos al 690 78 46 95.
+							</mat-error>
+						</div>
+						<div class="row m-0" *ngIf="totalPrice == 0">
+							<!-- Seasonal prices -->
+							<div class="col-6">
+								<p>Temporada baja</p>
+								<p>Temporada media</p>
+								<p>Temporada alta</p>
+							</div>
+							<div class="col-6">
+								<p>68€/noche</p>
+								<p>87€/noche</p>
+								<p>98€/noche</p>
+							</div>
+						</div>
+						<div class="row m-0" *ngIf="totalPrice != 0">
+							<!-- Pricing details -->
+							<div class="col-6">
+								<p>{{ roomPrice }} € x {{ nights }} noches</p>
+								<p>Gastos de limpieza</p>
+							</div>
+							<div class="col-6">
+								<p>{{ totalRoom }} €</p>
+								<p>25 €</p>
+							</div>
+							<hr>
+							<div class="col-6">
+								<p>Total</p>
+							</div>
+							<div class="col-6">
+								<p>{{ totalPrice }} €</p>
+							</div>
+						</div>
+						<button *ngIf="!formOk" class="btn-white w-100" type="submit">Reservar</button>
+						<button *ngIf="formOk" class="btn-white w-100" (click)="modifyData()">Modificar reserva</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<payment *ngIf="formOk" [bookingData]="bookingData"></payment>
+		<!-- <payment></payment> -->
+	</div>
+</div>

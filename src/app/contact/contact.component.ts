@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { ScrollService } from '../scroll.service';
+
 
 @Component({
   selector: 'contact',
@@ -7,6 +9,7 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./contact.component.css'],
 })
 export class ContactComponent {
+  @Input() localBooking!: Boolean;
   name: string = '';
   phone: string = '';
   email: string = '';
@@ -16,7 +19,7 @@ export class ContactComponent {
   isError: boolean = false;
   messageText: string = '';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private scrollService: ScrollService) {}
 
   sendEmail() {
     const datos = {
@@ -27,7 +30,7 @@ export class ContactComponent {
     };
 
     // Solicitud HTTP POST al servidor Node.js
-    this.http.post('http://localhost:3000/send-email', datos).subscribe({
+    this.http.post('http://localhost:3000/email/send-email', datos).subscribe({
       next: (respuesta) => {
         console.log('Correo electrónico enviado con éxito', respuesta);
         this.isError = false;
@@ -52,13 +55,17 @@ export class ContactComponent {
     this.message = '';
   }
 
-  openLinkInNewTab() {
-    const url = 'https://www.airbnb.es/rooms/945766271880521378?guests=1&adults=1&s=67&unique_share_id=f7ca4270-2099-4e9a-adab-1682e1fe5186';
+  openWhatsApp() {
+    const url = 'https://wa.me/690784695';
     window.open(url, '_blank');
   }
 
-  openWhatsApp() {
-    const url = 'https://wa.me/690784695';
+  scrollTo(sectionId: string) {
+    this.scrollService.scrollToSection(sectionId);
+  }
+
+  openLinkInNewTab() {
+    const url = 'https://www.airbnb.es/rooms/945766271880521378?guests=1&adults=1&s=67&unique_share_id=f7ca4270-2099-4e9a-adab-1682e1fe5186';
     window.open(url, '_blank');
   }
 }

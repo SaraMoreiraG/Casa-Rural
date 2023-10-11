@@ -1,0 +1,70 @@
+.invoice {
+	background-color: #ffffff;
+	border-radius: 10px;
+	box-shadow: 0 14px 28px rgba(0, 0, 0, 0.1), 0 10px 10px rgba(0, 0, 0, 0.13);
+	margin: 50px 0px;
+	padding: 50px 30px 30px;
+}
+
+/* INVOICE HEADER */
+.invoice header {
+	overflow: hidden;
+	margin-bottom: 40px;
+}
+
+.invoice header section:nth-of-type(1) h1 {
+	text-transform: uppercase;
+	font-weight: 700;
+	letter-spacing: 2px;
+	color: #344760;
+	font-size: 1.8em;
+	margin-top: 0;
+	margin-bottom: 5px;
+}
+
+/* INVOICE MAIN */
+.invoice main,
+.dots {
+	border: 1px dashed #b7bcc3;
+	border-left-width: 0px;
+	border-right-width: 0px;
+}
+
+.invoice main {
+	padding-top: 30px;
+	padding-bottom: 30px;
+}
+
+.stripe-card {
+	padding-top: 20px;
+	padding-bottom: 10px;
+	color: #000;
+}
+
+.card-element {
+	color: #32325d;
+	font-family: "Lato", sans-serif;
+	padding-bottom: 30px;
+}
+
+.card-element::placeholder {
+	color: #aab7c4;
+}
+
+.card-element.invalid {
+	color: #fa755a;
+}
+
+.success {
+	font-family: 'Playfair Display', serif;
+	font-size: 1.8em;
+	margin-top: 30px;
+	color: green;
+}
+
+.payment-error {
+	font-family: 'Playfair Display', serif;
+	font-size: 1.8em;
+	margin-top: 30px;
+	color: rgb(128, 0, 0);
+}

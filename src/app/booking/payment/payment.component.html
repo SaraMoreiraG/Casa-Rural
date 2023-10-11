@@ -1,0 +1,52 @@
+<mat-stepper [linear]="true" #stepper>
+	<mat-step [completed]="paymentCompleted">
+		<ng-template matStepLabel>Realiza el pago</ng-template>
+		<div class="row m-0">
+			<invoice-img *ngIf="!paymentCompleted" [bookingDetails]="bookingData" [toPrint]="false"
+				class="col-md-6 col-sm-12"></invoice-img>
+			<div *ngIf="!paymentCompleted" class="invoice col-md-5 col-sm-12 ms-2">
+				<header>
+					<section>
+						<h1>Datos de la tarjeta</h1>
+					</section>
+				</header>
+				<section class="payment">
+					<form [formGroup]="paymentForm" (ngSubmit)="createStripeToken()" class="checkout">
+						<div class="stripe-card">
+							<!-- Payment Form -->
+							<label class="mb-4">Introduce tus datos:</label>
+							<div id="form-field mt-5">
+								<div id="card-info" #cardInfo></div>
+								<mat-error id="card-errors" role="alert" *ngIf="cardError">
+									<mat-icon style="color: #f44336">cancel</mat-icon>
+									&nbsp;{{ cardError }}
+								</mat-error>
+							</div>
+						</div>
+						<button id="submit-button" type="submit" class="btn-big mt-5">Pagar
+							ahora</button>
+						<p *ngIf="paymentError" class="payment-error">Ha ocurrido un error, ponte en contacto con
+							nosotro en el número: 690784695</p>
+					</form>
+				</section>
+			</div>
+			<div *ngIf="paymentCompleted" class="invoice">
+				<header>
+					<section>
+						<h1>Enhorabuena</h1>
+					</section>
+				</header>
+				<section class="payment">
+					<p *ngIf="paymentCompleted" class="success">¡La reserva se ha realizado con éxito! <br>
+						🎉🎉🎉🎉🎉</p>
+					<button matStepperNext *ngIf="paymentCompleted" class="btn-black">Descargar
+						justificante</button>
+				</section>
+			</div>
+		</div>
+	</mat-step>
+	<mat-step label="Descarga el justificante">
+		<invoice-img *ngIf="paymentCompleted" [bookingDetails]="bookingData" [toPrint]="true" [bookingId]="bookingId"
+			class="col-6"></invoice-img>
+	</mat-step>
+</mat-stepper>

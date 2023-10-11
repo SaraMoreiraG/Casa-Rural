@@ -8,7 +8,8 @@
 				<p>También puedes contactarnos directamente por teléfono en el número <a href="tel:+34990549"
 						target="_blank">+34 690 78 46 95</a></p>
 				<button class="btn-white" aria-label="Contáctanos por whatsapp" (click)="openWhatsApp()">Escribenos un whatsapp</button>
-				<button class="btn-medium mt-3" aria-label="Reserva en Airbnb" (click)="openLinkInNewTab()">Reserva en Airbnb</button>
+				<button *ngIf="localBooking" class="btn-medium mt-3" aria-label="Reserva ahora" (click)="scrollTo('booking')">Reserva ahora</button>
+				<button *ngIf="!localBooking" class="btn-medium mt-3" aria-label="Reserva ahora" (click)="openLinkInNewTab()">Reserva ahora</button>
 
 			</div>
 			<div class="right text-start ps-3 col-md-6 col-sm-12 ">

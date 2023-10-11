@@ -6,7 +6,8 @@
 		</p>
 		<div class="row-buttons-container">
 			<div class="pe-2 ps-4 mb-3 m-0">
-				<button class="btn-small" aria-label="Reserva ahora" (click)="openLinkInNewTab()">Reserva ahora</button>
+				<button *ngIf="localBooking" class="btn-small" aria-label="Reserva ahora" (click)="scrollTo('booking')">Reserva ahora</button>
+				<button *ngIf="!localBooking" class="btn-small" aria-label="Reserva ahora" (click)="openLinkInNewTab()">Reserva ahora</button>
 			</div>
 			<div class="ps-2 m-0">
 				<button class="btn-white" aria-label="Más información" (click)="scrollTo('gallery')">Más información</button>

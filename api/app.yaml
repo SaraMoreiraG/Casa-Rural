@@ -1,0 +1,15 @@
+runtime: nodejs14
+
+env_variables:
+  NODE_ENV: production
+  GMAIL_USER: saramordev@gmail.com
+  GMAIL_PASS: rgtxiyrtsbedxoin
+  TO_EMAIL: saramordev@gmail.com
+  SUBJECT: Mensaje de contacto - Casa Puebla
+
+handlers:
+- url: /send-email
+  script: auto
+
+- url: /.*
+  script: auto

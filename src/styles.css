@@ -43,7 +43,8 @@ p{
 #gallery,
 #activities,
 #services,
-#contact {
+#contact,
+#booking {
 	scroll-margin-top: 75px;
 }
 .container-center {
@@ -75,7 +76,7 @@ p{
 }
 
 /********* BUTTONS *********/
-.btn-small, .btn-medium, .btn-big{
+.btn-super-small, .btn-small, .btn-medium, .btn-big{
 	background-color: #a79770;
 	border-radius: 30px;
 	padding: 1em 2em;
@@ -84,6 +85,11 @@ p{
 	font-size: 1em;
 	font-weight: 600;
 	border: 2px solid #a79770;
+}
+.btn-super-small{
+	padding: 0.5em 1em;
+	font-size: 0.8em;
+	letter-spacing: 1.5px;
 }
 .btn-small{
 	padding: 1em 2em;
@@ -99,20 +105,22 @@ p{
 	padding: 13px 53px 14px 52px;
 	width: 100%;
 }
-.btn-small:hover, .btn-medium:hover{
+.btn-super-small:hover, .btn-small:hover, .btn-medium:hover, .btn-big:hover{
 	cursor: pointer;
 	background-color: #988862;
 	border-color: #988862;
 }
-.btn-white{
+.btn-white, .btn-black{
 	background-color: transparent;
 	border-radius: 30px;
 	padding: 1em 2em;
 	text-transform: uppercase;
-	color: white;
 	font-size: 1em;
 	letter-spacing: 2px;
 	font-weight: 600;
+}
+.btn-white{
+	color: white;
 	border: 2px solid #fff;
 }
 .btn-white:hover{
@@ -120,3 +128,15 @@ p{
 	background-color: #fff;
 	color: #000;
 }
+.btn-black{
+	color: #000;
+	border: 2px solid #000;
+}
+.btn-black:hover{
+	cursor: pointer;
+	background-color: #000;
+	color: #fff;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

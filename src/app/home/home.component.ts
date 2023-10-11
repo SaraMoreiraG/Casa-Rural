@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ScrollService } from '../scroll.service';
 
 @Component({
@@ -7,6 +7,8 @@ import { ScrollService } from '../scroll.service';
   styleUrls: ['./home.component.css', '../../styles.css']
 })
 export class HomeComponent {
+  @Input() localBooking! : boolean;
+
   constructor(private scrollService: ScrollService) {}
 
   scrollTo(sectionId: string) {

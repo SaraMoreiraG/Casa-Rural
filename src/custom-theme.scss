@@ -1,0 +1,17 @@
+@use '@angular/material' as mat;
+@include mat.core();
+
+$casa-rural-primary: mat.define-palette(mat.$indigo-palette);
+$casa-rural-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$casa-rural-warn: mat.define-palette(mat.$red-palette);
+
+$casa-rural-theme: mat.define-light-theme((
+  color: (
+    primary: $casa-rural-primary,
+    accent: $casa-rural-accent,
+    warn: $casa-rural-warn,
+  )
+));
+
+@include mat.all-component-themes($casa-rural-theme);
+

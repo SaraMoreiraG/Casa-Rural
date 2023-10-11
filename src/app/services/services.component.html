@@ -5,13 +5,14 @@
         <h3>Servicios disponibles:</h3>
         <ul class="custom-list">
           <li><i class="fa-solid fa-check" aria-label="Checkmark"></i> Cocina totalmente equipada</li>
-          <li><i class="fa-solid fa-check" aria-label="Checkmark"></i> Lavadora y secadora disponibles</li>
-          <li><i class="fa-solid fa-check" aria-label="Checkmark"></i> Jardín y zona de juegos infantiles</li>
-          <li><i class="fa-solid fa-check" aria-label="Checkmark"></i> Barbacoa y zona de picnic</li>
-          <li><i class="fa-solid fa-check" aria-label="Checkmark"></i> Wi-Fi de alta velocidad</li>
-          <li><i class="fa-solid fa-check" aria-label="Checkmark"></i> Estacionamiento privado</li>
+          <li><i class="fa-solid fa-check" aria-label="Checkmark"></i> Lavadora</li>
+          <li><i class="fa-solid fa-check" aria-label="Checkmark"></i> Televisión</li>
+          <li><i class="fa-solid fa-check" aria-label="Checkmark"></i> Secador de pelo</li>
+          <li><i class="fa-solid fa-check" aria-label="Checkmark"></i> Zona para trabajar</li>
+          <li><i class="fa-solid fa-check" aria-label="Checkmark"></i> Aparcamiento gratuito</li>
         </ul>
-        <button class="btn-medium mb-5" aria-label="Reserva ahora" (click)="openLinkInNewTab()">Reserva ahora</button>
+				<button *ngIf="localBooking" class="btn-medium mb-5" aria-label="Reserva ahora" (click)="scrollTo('booking')">Reserva ahora</button>
+				<button *ngIf="!localBooking" class="btn-medium mb-5" aria-label="Reserva ahora" (click)="openLinkInNewTab()">Reserva ahora</button>
       </section>
       <section class="right col-md-5 col-sm-10">
         <h3>Explora la zona:</h3>
